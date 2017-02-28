@@ -3,43 +3,47 @@
     <head>
         <meta charset="utf-8">
         <title>Login and Registration</title>
+        <script src="https://js.stripe.com/v2/"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        {% load static %}
+        <script src="{% static 'users/script.js' %}" charset="utf-8"></script>
         <style rel="stylesheet" type="text/css">
-            .error{
+            .errorlist{
                 color:red;
-                font-size: 24px;
+            }
+            #card{
+              width:50%;
             }
         </style>
     </head>
     <body>
         {% if messages %}
             {% for message in messages %}
-            <h1{% if message.tags %} class="{{ message.tags }}" {% endif %}> {{ message }} </h1>
+            {{message}}
             {% endfor %}
         {% endif %}
         <div id="register">
             <h1>Registration</h1>
-            <form action="{% url 'users:register' %}" method="POST">
+            <form id="register_form" action="{% url 'users:register' %}" method="POST">
                 {% csrf_token %}
-                <label>First Name: </label><input type="text" name="first_name"></input><br>
-                <label>Last Name: </label><input type="text" name="last_name"></input><br>
-                <label>Email: </label><input type="text" name="email"></input><br>
-                <label>Password: </label><input type="text" name="password"></input><br>
-                <label>Confirm Password: </label><input type="text" name="password2"></input>
-                <input type="submit" value="Register"></input>
+                {{register.as_p}}
+                <div id="card"></div>
+                <div id="card_errors"></div>
+
+                <input type="submit" value="Register" />
             </form>
         </div>
         <div id="login">
             <h1>Login</h1>
             <form action="{% url 'users:login' %}" method="POST">
                 {% csrf_token %}
-                <label>Email: </label><input type="text" name="email"></input><br>
-                <label>Password: </label><input type="text" name="password"></input>
-                <input type="submit" value="Login"></input>
+                {{login.as_p}}
+                <input type="submit" value="Login">
             </form>
         </div>
-
-        <br />
-
-        {{register.as_p}}
     </body>
 </html>
