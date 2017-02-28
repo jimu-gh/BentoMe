@@ -60,8 +60,11 @@ $(document).ready(function () {
   function stripeTokenHandler(token) {
     // Insert the token ID into the form so it gets submitted to the server
     var form = document.getElementById('register_form');
-    hidden = document.getElementById('id_stripe_token');
-    hidden.setAttribute('value', token.id)
+    var stripe_token = document.getElementById('id_stripe_token');
+    var last_4 = document.getElementById('id_last_4_digits');
+    stripe_token.setAttribute('value', token.id);
+    last_4.setAttribute('value', token.card.last4);
+
 
     // Submit the form
     form.submit();

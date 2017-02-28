@@ -36,23 +36,31 @@ def register(request):
             )
             user.set_password(form.cleaned_data['password1'])
 
-            print user
-            # try:
-            #     user.save()
-            # except IntegrityError:
-            #     form.addError(user.email + ' is already a member')
-            # else:
-            #     request.session['user'] = {
-            #         'id': user.id,
-            #         'first_name': user.first_name
-            #     }
-            #     return redirect(reverse('home:index'))
+            try:
+                user.save()
+            except IntegrityError:
+                form.addError(user.email + ' is already a member')
+            else:
+                request.session['user'] = {
+                    'id': user.id,
+                    'first_name': user.first_name
+                }
+                return redirect(reverse('home:index'))
         for error in form.errors:
             messages.error(request, form.errors[error])
-
-        print form['stripe_token']
 
         return redirect(reverse('users:index'))
 
 def login(request):
-    pass
+    if request.method == "POST":
+        response = User.objects.login(request.POST)
+        if type(response) is list:
+            for errors in response:
+                messages.error(request, error)
+            return redirect(reverse('users:index'))
+        else:
+            request.session['user'] = {
+                'id': response.id,
+                'first_name': response.first_name
+            }
+            return redirect(reverse('users:index'))
