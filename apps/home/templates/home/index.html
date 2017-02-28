@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js" lang="en">
     <head>
-        <meta charset="utf-8">
-        <title>HOMEPAGE</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+        {% load staticfiles %}
+        <script src="{% static 'home/js/jquery.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
     </head>
     <body>
-        <h1>HOME</h1>
+        <div class="section hero">
+            <div class="container">
+                <div class="row">
+                    <div class="one-half column">
+                        <h4 class="hero-heading">Healthy meals for the modern coder.<br>Introducing Dojo Bentos.</h4>
+                        <a class="button button-primary" href="#">Bento me!</a>
+                    </div>
+                    <div class="one-half column">
+                        <img src="{% static 'home/images/bentoicon1.png' %}" class="logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section faq">
+            <div class="container">
+                <div class="row">
+                    <div class="one-third column ">
+                        <h3 class="faq-heading">What the heck's a bento?</h3>
+                    </div>
+                    <div class="one-third column">
+                        <h3 class="faq-heading">Meet the chef</h3>
+                    </div>
+                    <div class="one-third column">
+                        <h3 class="faq-heading">Sign up</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section hero">
+            <div class="row" id="bentopix">
+                <img width="50" src="{% static 'home/images/1.jpg' %}">
+                <img width="50" src="{% static 'home/images/2.jpg' %}">
+                <img width="50" src="{% static 'home/images/3.jpg' %}">
+                <img width="50" src="{% static 'home/images/4.jpg' %}">
+                <img width="50" src="{% static 'home/images/5.jpg' %}">
+                <img width="50" src="{% static 'home/images/6.jpg' %}">
+                <img width="50" src="{% static 'home/images/7.jpg' %}">
+                <img width="50" src="{% static 'home/images/8.jpg' %}">
+                <img width="50" src="{% static 'home/images/9.jpg' %}">
+            </div>
+        </div>
+        <script>
+          $(document).foundation();
+        </script>
     </body>
 </html>
