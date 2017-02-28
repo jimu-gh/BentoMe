@@ -8,10 +8,9 @@ import bcrypt
 class User(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    email = models.EmailField(max_length=255)
+    email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     student = models.BooleanField(default=True)
-    last_4_digits = models.CharField(max_length=4)
     stripe_id = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
 
