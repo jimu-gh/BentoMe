@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="one-half column">
                         <h4 class="hero-heading">Healthy meals for the modern coder.<br>Introducing Dojo Bentos.</h4>
-                        <a class="button button-primary" href="#">Bento me!</a>
+                        <a class="button button-primary" href="{% url 'users:index' %}">Bento me!</a>
                     </div>
                     <div class="one-half column">
                         <img src="{% static 'home/images/bentoicon1.png' %}" class="logo">
@@ -29,28 +29,40 @@
             <div class="container">
                 <div class="row">
                     <div class="one-third column ">
-                        <h3 class="faq-heading">What the heck's a bento?</h3>
+                        <h3 class="faq-heading">WHAT IS IT?</h2>
+                        <h4>A Bento is a home-packed Japanese lunch, containing rice, fish or meat, and cooked vegetables. The Dojo Bento is a modern take on the traditional recipe.</h4>
                     </div>
                     <div class="one-third column">
-                        <h3 class="faq-heading">Meet the chef</h3>
+                        <h3 class="faq-heading">HOW IT WORKS</h3>
+                        <h4>1. Order your bento</h4>
+                        <h4>2. Bring an empty lunchbox</h4>
+                        <h4>3. Enjoy your bento<br>(next day)</h4>
                     </div>
                     <div class="one-third column">
-                        <h3 class="faq-heading">Sign up</h3>
+                        <h3 class="faq-heading">MEET THE CHEF</h3>
+                        <h4>Meet Maria. A Japanese native, Maria grew up in the kitchen and is formally trained at Le Cordon Bleu.</h4>
                     </div>
                 </div>
             </div>
         </div>
         <div class="section hero">
             <div class="row" id="bentopix">
-                <img width="50" src="{% static 'home/images/1.jpg' %}">
-                <img width="50" src="{% static 'home/images/2.jpg' %}">
-                <img width="50" src="{% static 'home/images/3.jpg' %}">
-                <img width="50" src="{% static 'home/images/4.jpg' %}">
-                <img width="50" src="{% static 'home/images/5.jpg' %}">
-                <img width="50" src="{% static 'home/images/6.jpg' %}">
-                <img width="50" src="{% static 'home/images/7.jpg' %}">
-                <img width="50" src="{% static 'home/images/8.jpg' %}">
-                <img width="50" src="{% static 'home/images/9.jpg' %}">
+                <div class="one-half column">
+                    <p>
+                        test
+                    </p>
+                </div>
+                <div class="one-half column">
+                    <img width="50" src="{% static 'home/images/1.jpg' %}">
+                    <img width="50" src="{% static 'home/images/2.jpg' %}">
+                    <img width="50" src="{% static 'home/images/3.jpg' %}"><br>
+                    <img width="50" src="{% static 'home/images/4.jpg' %}">
+                    <img width="50" src="{% static 'home/images/5.jpg' %}">
+                    <img width="50" src="{% static 'home/images/6.jpg' %}"><br>
+                    <img width="50" src="{% static 'home/images/7.jpg' %}">
+                    <img width="50" src="{% static 'home/images/8.jpg' %}">
+                    <img width="50" src="{% static 'home/images/9.jpg' %}">
+                </div>
             </div>
         </div>
         <script>

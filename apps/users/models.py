@@ -39,7 +39,7 @@ class User(models.Model):
 
     def set_password(self, clear_password):
         salt = bcrypt.gensalt()
-        self.password = bcrypt.hashpw(clear_passwordencode('utf-8'), salt)
+        self.password = bcrypt.hashpw(clear_password.encode('utf-8'), salt)
 
     def check_password(self, clear_password):
         return bcrypt.hashpw(clear_password.encode('utf-8'), self.password.encode('utf-8')) == self.password
