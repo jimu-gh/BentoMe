@@ -28,7 +28,7 @@ def dashboard(request):
                 #tuesday
                 context['tuesday'] = meal
             elif meal.live_date.isoweekday() == 3:
-                #wedday
+                #wednesday
                 context['wednesday'] = meal
             elif meal.live_date.isoweekday() == 4:
                 #thursday
