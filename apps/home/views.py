@@ -28,13 +28,13 @@ def dashboard(request):
                 #tuesday
                 context['tuesday'] = meal
             elif meal.live_date.isoweekday() == 3:
-                #wed
+                #wedday
                 context['wednesday'] = meal
             elif meal.live_date.isoweekday() == 4:
-                #thurs
+                #thursday
                 context['thursday'] = meal
             elif meal.live_date.isoweekday() == 5:
-                #fir
+                #friday
                 context['friday'] = meal
 
     return render(request, 'home/dashboard.html', context)
