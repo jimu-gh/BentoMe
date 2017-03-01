@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Landing</title>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/logout">Logout</a>
+    </div>
+    <div class="menu bar">
+      <ul>
+        <li><a href="/adddish"></a></li>
+        <li>will be some link</li>
+        <li>will be some link</li>
+      </ul>
+    </div>
+    <div class="previous meals">
+      <h2>Previous Meals</h2>
+      {%for meal in meals%}
+      <div class="meals">
+        <!-- place holder for meal date -->
+        <!-- place holder for meal name -->
+        <!-- place holder for average rating -->
+        <!-- place holder for units sold -->
+      </div>
+      {% end for %}
+    </div>
+    <div class="messages">
+      <h2>messages</h2>.
+
+          <p>{{message.message}}</p>
+          <i>posted by: {{message.user}} on {{message.createdon}}</i>
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
