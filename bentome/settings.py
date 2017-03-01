@@ -28,6 +28,8 @@ SECRET_KEY = '8=637$sjptz-5#b%$n3$678kt0iq-^u0t=%u6_+vpm=815k74z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+MEDIA_ROOT = os.path.join(BASE_DIR, '/home/static/home/images')
+
 ALLOWED_HOSTS = []
 
 
@@ -110,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Pacific'
 
 USE_I18N = True
 
