@@ -5,9 +5,12 @@ from .forms import RegisterForm, LoginForm
 
 from .models import User
 
-import stripe
+import stripe, datetime
 # Create your views here.
 def index(request):
+    if 'user' in request.session:
+        return redirect(reverse('meals:index'))
+
     context = {
         'register': RegisterForm(),
         'login': LoginForm()
@@ -64,3 +67,28 @@ def login(request):
                 'first_name': response.first_name
             }
             return redirect(reverse('users:index'))
+
+def logout(request):
+    if 'user' in request.session:
+        request.session.pop('user')
+
+    return redirect(reverse('home:index'))
+
+def show(request, user_id):
+    if 'user' not in request.session:
+        return redirect(reverse('users:index'))
+    if request.session['user']['id'] != user_id:
+        messages.error(request, "Cannot access another user's information")
+        return redirect(reverse('home:dashboard'))
+
+    today = datetime.datetime.now().date()
+
+    user_orders = Meal.objects.filter(orders__user__id=user_id)
+
+    context = {
+        'user': User.objects.get(id=user_id),
+        'current_orders': user_orders.filter(live_date__lte=today),
+        'past_orders': [{'meal': meal, 'rating': meal.meal_rating.filter(user__id=user_id)} for meal in user_orders]
+    }
+
+    return render(request, 'show.html', context)
