@@ -6,10 +6,11 @@
   </head>
   <body>
     <div class="header">
+      <a href="/admin">Home</a>
       <a href="/logout">Logout</a>
     </div>
     <div class="adding">
-      <form class="add dish" action="{% url 'admin:add' %}" method="post">
+      <form class="add dish" action="{% url 'adminbento:add' %}" method="post">
         {% csrf_token %}
         Dish Type:<select class="dishtype" name="dishtype">
           <option value="1">Main Dish</option>
