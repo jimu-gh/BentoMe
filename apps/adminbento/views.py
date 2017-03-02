@@ -4,11 +4,14 @@ from ..users.models import *
 from django.core.urlresolvers import reverse
 # Create your views here.
 def index(request):
+    return render(request, 'adminbento/index.html')
+
+def dashboard(request):
     context={
     'message' : Message.objects.all(),
-    'meals' : Meals.objects.all()
+    'meals' : Meal.objects.all()
     }
-    return render(request, 'adminbento/index.html')
+    return render(request, 'adminbento/dashboard.html')
 
 def dish(request):
     return render(request, 'adminbento/adddish.html')
