@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Menu Planning</title>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/vader/jquery-ui.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script>
+      $( function() {
+        $( "#accordion" ).accordion();
+      } );
+      </script>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/admin">Home</a>
+      <a href="/logout">Logout</a>
+    </div>
+    <div id="accordion">
+      <h3>Monday</h3>
+      <div class="mon">
+        <p>
+          <form class="" action="/admin/menu" method="post">
+          {% csrf_token %}
+        <p> Main Dish:</p>
+          {%for dish in main_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 1:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 2:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+        </p>
+        <input type="submit" name="" value="Add Meal">
+      </form>
+      </div>
+      <h3>Tuesday</h3>
+      <div class="tues">
+          <form class="" action="/admin/menu" method="post">
+          {% csrf_token %}
+        <p> Main Dish:</p>
+          {%for dish in main_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 1:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 2:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+        </p>
+        <input type="submit" name="" value="Add Meal">
+      </form>
+      </div>
+      <h3>Wednesday</h3>
+      <div class="wed">
+          <form class="" action="/admin/menu" method="post">
+          {% csrf_token %}
+        <p> Main Dish:</p>
+          {%for dish in main_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 1:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 2:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+        </p>
+        <input type="submit" name="" value="Add Meal">
+      </form>
+      </div>
+      <h3>Thursday</h3>
+      <div class="thurs">
+          <form class="" action="/admin/menu" method="post">
+          {% csrf_token %}
+        <p> Main Dish:</p>
+          {%for dish in main_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 1:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 2:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+        </p>
+        <input type="submit" name="" value="Add Meal">
+      </form>
+      </div>
+      <h3>Friday</h3>
+      <div class="fri">
+          <form class="" action="/admin/menu" method="post">
+          {% csrf_token %}
+        <p> Main Dish:</p>
+          {%for dish in main_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 1:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+          <p>Side Dish 2:</p>
+          {%for dish in side_dish %}
+            <select class="main_dish" name="{{dish.id}}">
+              {{dish.name}}
+            </select>
+          {% endfor %}
+        </p>
+        <input type="submit" name="" value="Add Meal">
+      </form>
+      </div>
+    </div>
+  </body>
+</html>
