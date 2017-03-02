@@ -7,7 +7,7 @@
         <title>Test</title>
         {% load staticfiles %}
         <script src="{% static 'home/js/jquery.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/menu.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
@@ -17,26 +17,41 @@
             <div class="container">
                 <div class="row">
                     <div class="twelve columns">
-                        <button>Day/Dish</button>
-                        <button>BentoMe!</button>
+                        <button>View Orders</button>
                         <a class="button" href="{% url 'users:logout' %}">Logout</a>
                     </div>
                 </div>
                 <div class="row">
-<<<<<<< HEAD
                     <div class="twelve columns">
-                        <h3 class="">Mon</h3>
-=======
-                    <div class="two columns">
-                        <h3>Mon</h3>
-                        {{monday}}
+                        <a href="#mon"><h3 class="menu-heading">Mon</h3></a>
+                        <a href="#tue"><h3 class="menu-heading">Tue</h3></a>
+                        <a href="#wed"><h3 class="menu-heading">Wed</h3></a>
+                        <a href="#thu"><h3 class="menu-heading">Thu</h3></a>
+                        <a href="#fri"><h3 class="menu-heading">Fri</h3></a>
                     </div>
-                    <div class="two columns">
->>>>>>> ba2cbaf69de5b83c5b3a616406cd3b4b01ba744c
-                        <h3>Tue</h3>
-                        <h3>Wed</h3>
-                        <h3>Thu</h3>
-                        <h3>Fri</h3>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        <div id="mon" class="modal-window">
+                            1
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                        <div id="tue" class="modal-window">
+                            2
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                        <div id="wed" class="modal-window">
+                            3
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                        <div id="thu" class="modal-window">
+                            4
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                        <div id="fri" class="modal-window">
+                            5
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
                     </div>
                 </div>
             </div>
