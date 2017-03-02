@@ -36,7 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'apps.admin',
+    'apps.adminbento',
     'apps.home',
     'apps.users',
     'django.contrib.admin',

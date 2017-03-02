@@ -3,13 +3,15 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from .forms import RegisterForm, LoginForm
 
-from .models import User
+from .models import *
+from ..home.models import *
 
 import stripe, datetime
 # Create your views here.
 def index(request):
+    print User.objects.all()
     if 'user' in request.session:
-        return redirect(reverse('meals:index'))
+        return redirect(reverse('home:index'))
 
     context = {
         'register': RegisterForm(),
@@ -28,12 +30,15 @@ def register(request):
 
             customer = stripe.Customer.create(
                 description = form.cleaned_data['email'],
+                email = form.cleaned_data['email'],
                 card = form.cleaned_data['stripe_token'],
             )
 
             user = User(
                 first_name = form.cleaned_data['first_name'],
                 last_name = form.cleaned_data['last_name'],
+                email = form.cleaned_data['email'],
+                student = form.cleaned_data['student'],
                 last_4_digits = form.cleaned_data['last_4_digits'],
                 stripe_id = customer.id
             )
@@ -77,18 +82,19 @@ def logout(request):
 def show(request, user_id):
     if 'user' not in request.session:
         return redirect(reverse('users:index'))
-    if request.session['user']['id'] != user_id:
+    if int(request.session['user']['id']) != int(user_id):
         messages.error(request, "Cannot access another user's information")
+        print int(request.session['user']['id']) ==  int(user_id)
         return redirect(reverse('home:dashboard'))
 
     today = datetime.datetime.now().date()
 
-    user_orders = Meal.objects.filter(orders__user__id=user_id)
+    user_orders = Meal.objects.filter(meal_orders__user__id=user_id)
 
     context = {
         'user': User.objects.get(id=user_id),
         'current_orders': user_orders.filter(live_date__lte=today),
-        'past_orders': [{'meal': meal, 'rating': meal.meal_rating.filter(user__id=user_id)} for meal in user_orders]
+        'past_orders': [{'meal': meal, 'rating': meal.meal_ratings.filter(user__id=user_id)} for meal in user_orders]
     }
 
-    return render(request, 'show.html', context)
+    return render(request, 'users/templates/show.html', context)

@@ -35,7 +35,7 @@ class User(models.Model):
     objects = UserManager()
 
     def __str__(self):
-        return self.name
+        return "{ Name: " + self.first_name + " " + self.last_name + " }"
 
     def set_password(self, clear_password):
         salt = bcrypt.gensalt()

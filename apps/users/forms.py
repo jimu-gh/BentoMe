@@ -41,6 +41,11 @@ class RegisterForm(forms.Form):
 
     )
 
+    student = forms.BooleanField(
+        required = False,
+        label = "Are you a CodingDojo Student?"
+    )
+
     last_4_digits = forms.CharField(
         required = True,
         min_length = 4,

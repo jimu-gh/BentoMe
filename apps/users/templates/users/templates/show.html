@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{user.first_name}}</title>
+  </head>
+  <body>
+    <h2>{{user.first_name}} {{user.last_name}}</h2>
+    {% if current_orders %}
+      <div id="current_orders">
+        {% for order in current_orders %}
+          <p>{{order.live_date}}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if past_orders %}
+      <div id="past_orders">
+        {% for order in past_orders %}
+          <p>{{order.meal.live_date}} {{order.rating}}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <p><label for="new_card">Current Card: ****{{user.last_4_digits}}</label>
+      <button type="button" id="new_card">Change Card</button>
+    </p>
+  </body>
+</html>
