@@ -1,17 +1,37 @@
 from django.shortcuts import render, redirect
 from ..home.models import *
-
 from .forms import *
 from ..users.models import *
 from django.core.urlresolvers import reverse
-
 # Create your views here.
 def index(request):
+    return render(request, 'adminbento/index.html')
+
+def login(request):
+    if request.method == "POST":
+        response = User.objects.login(request.POST)
+        if type(response) is list:
+            for errors in response:
+                messages.error(request, error)
+            return redirect(reverse('users:index'))
+        else:
+            request.session['user'] = {
+                'id': response.id,
+                'first_name': response.first_name
+            }
+            return redirect(reverse('admin:dashboard'))
+
+def logout(request):
+    if 'user' in request.session:
+        request.session.pop('user')
+    return redirect(reverse('admin:index'))
+
+def dashboard(request):
     context={
     'message' : Message.objects.all(),
     'meals' : Meal.objects.all()
     }
-    return render(request, 'adminbento/index.html')
+    return render(request, 'adminbento/dashboard.html')
 
 def dish(request):
     return render(request, 'adminbento/adddish.html')
