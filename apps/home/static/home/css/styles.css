@@ -17,8 +17,8 @@
 .categories .section-description {
     margin-bottom: 4rem;
 }
-#feature{
-    width:95%;
+#container{
+    text-align: center;
 }
 @media (max-width: 480px) {
     .section {
@@ -126,3 +126,4 @@
     margin:0.5%;
     max-width:150px;
 }
+#

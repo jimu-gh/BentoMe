@@ -8,28 +8,36 @@ class Meal(models.Model):
     live_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return str(self.live_date)
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name
 
 class Ingredient(models.Model):
     display_name = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.display_name
 
 class Side_Dish(models.Model):
     display_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    meal = models.ManyToManyField(Meal, related_name="side_dishes")
+    meal = models.ManyToManyField(Meal, related_name="side_dishes", blank=True)
     ingredients = models.ManyToManyField(Ingredient, related_name="side_dishes")
     categories = models.ManyToManyField(Category, related_name="side_dishes")
-    image = models.FileField(upload_to='')
+    image = models.FileField(upload_to='',blank=True)
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.display_name
 
 class Main_Dish(models.Model):
     display_name = models.CharField(max_length=100)
@@ -37,16 +45,21 @@ class Main_Dish(models.Model):
     meal = models.ManyToManyField(Meal, related_name="main_dishes")
     ingredients = models.ManyToManyField(Ingredient, related_name="main_dishes")
     categories = models.ManyToManyField(Category, related_name="main_dishes")
-    image = models.FileField(upload_to='')
+    image = models.FileField(upload_to='',blank=True)
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.display_name
 
 class Meal_Order(models.Model):
     user = models.ForeignKey(User, related_name="user_orders")
     meal = models.ForeignKey(Meal, related_name="meal_orders")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.user.first_name + " : " + str(self.meal.live_date)
+
 
 class Rating(models.Model):
     rating = models.IntegerField()
@@ -54,3 +67,5 @@ class Rating(models.Model):
     meal = models.ForeignKey(Meal, related_name="meal_ratings")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.user.first_name + " : " + str(self.meal.live_date) + " : " + str(self.rating)
