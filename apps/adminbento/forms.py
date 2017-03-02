@@ -11,13 +11,13 @@ class MealForm(forms.Form):
 
     main_dish = forms.ChoiceField(
         required = True,
-        choices = Main_Dish.objects.all().order_by('display_name'),
+        choices = [(entree.id, entree.display_name) for entree in Main_Dish.objects.all().order_by('display_name')],
         label = "Entree"
     )
 
     side_dish = forms.MultipleChoiceField(
         required = False,
-        choices = Side_Dish.objects.all().order_by('display_name'),
+        choices = [(side.id, side.display_name) for side in Side_Dish.objects.all().order_by('display_name')],
         label = "Side Dish(es)"
     )
 
