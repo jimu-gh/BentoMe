@@ -5,10 +5,31 @@
     <title>Admin Login</title>
   </head>
   <body>
-      <div id="login">
-          <h1>Login</h1>
-            <h4>unbuilt admin login</h4></h4>
-          </form>
+  <body>
+      {% if messages %}
+          {% for message in messages %}
+          {{message}}
+          {% endfor %}
+      {% endif %}
+      <div class="section register">
+          <div class="container">
+              <div class="row">
+              </div>
+              <div class="row">
+                  <div class="twelve columns">
+                      <div id="open-log" class="modal-window">
+                          <h3 class="register-heading">Login</h3>
+                          <form action="{% url 'adminbento:dashboard' %}" method="POST">
+                              {% csrf_token %}
+                              {{login.as_p}}
+                              <input type="submit" value="Submit">
+                          </form>
+                          <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
+  </body>
   </body>
 </html>
