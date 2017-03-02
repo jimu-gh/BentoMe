@@ -76,7 +76,6 @@ def login(request):
 def logout(request):
     if 'user' in request.session:
         request.session.pop('user')
-
     return redirect(reverse('home:index'))
 
 def show(request, user_id):
