@@ -11,7 +11,7 @@ import stripe, datetime
 def index(request):
     print User.objects.all()
     if 'user' in request.session:
-        return redirect(reverse('home:index'))
+        return redirect(reverse('home:dashboard'))
 
     context = {
         'register': RegisterForm(),
@@ -53,7 +53,7 @@ def register(request):
                     'id': user.id,
                     'first_name': user.first_name
                 }
-                return redirect(reverse('home:index'))
+                return redirect(reverse('home:dashboard'))
         for error in form.errors:
             messages.error(request, form.errors[error])
 
@@ -71,7 +71,7 @@ def login(request):
                 'id': response.id,
                 'first_name': response.first_name
             }
-            return redirect(reverse('users:index'))
+            return redirect(reverse('home:dashboard'))
 
 def logout(request):
     if 'user' in request.session:
