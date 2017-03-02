@@ -15,11 +15,13 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Ingredient(models.Model):
+    display_name = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Side_Dish(models.Model):
+    display_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     meal = models.ManyToManyField(Meal, related_name="side_dishes")
     ingredients = models.ManyToManyField(Ingredient, related_name="side_dishes")
@@ -30,6 +32,7 @@ class Side_Dish(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Main_Dish(models.Model):
+    display_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     meal = models.ManyToManyField(Meal, related_name="main_dishes")
     ingredients = models.ManyToManyField(Ingredient, related_name="main_dishes")
