@@ -10,10 +10,9 @@
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
         {% load staticfiles %}
-        <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
-        <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
-        <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
-        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'users/css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'users/css/skeleton.css' %}" />
+        <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
         <script src="{% static 'users/js/script.js' %}" charset="utf-8"></script>
         <style rel="stylesheet" type="text/css">
             .errorlist{
@@ -37,24 +36,34 @@
         <div class="section register">
             <div class="container">
                 <div class="row">
-                    <div class="one-half column" id="register">
-                        <h2>Registration</h2>
-                        <form id="register_form" action="{% url 'users:register' %}" method="POST">
-                            {% csrf_token %}
-                            {{register.as_p}}
-                            <label for="cc">Credit Card #:</label>
-                            <div id="card"></div>
-                            <div id="card_errors"></div><br>
-                            <input type="submit" value="Register" />
-                        </form>
+                    <div class="twelve columns">
+                        <a class="button" href="#open-reg">Register</a>
+                        <a class="button" href="#open-log">Login</a>
                     </div>
-                    <div class="one-half column" id="login">
-                        <h2>Login</h2>
-                        <form action="{% url 'users:login' %}" method="POST">
-                            {% csrf_token %}
-                            {{login.as_p}}
-                            <input type="submit" value="Login">
-                        </form>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        <div id="open-reg" class="modal-window">
+                            <h3 class="register-heading">Register</h3>
+                            <form id="register_form" action="{% url 'users:register' %}" method="POST">
+                                {% csrf_token %}
+                                {{register.as_p}}
+                                <label for="cc">Credit Card #:</label>
+                                <div id="card"></div>
+                                <div id="card_errors"></div><br>
+                                <input type="submit" value="Register" />
+                            </form>
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                        <div id="open-log" class="modal-window">
+                            <h3 class="register-heading">Login</h3>
+                            <form action="{% url 'users:login' %}" method="POST">
+                                {% csrf_token %}
+                                {{login.as_p}}
+                                <input type="submit" value="Login">
+                            </form>
+                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
                     </div>
                 </div>
             </div>

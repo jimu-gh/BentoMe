@@ -1,15 +1,14 @@
+* {
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
 .section {
-    padding: 0rem 0 0rem;
+    padding: 2rem 0 2rem;
     text-align: center;
 }
 .section-heading, .section-description {
     margin-bottom: 1.2rem;
-}
-.register {
-    background-image: url('../images/bento-bg-faded.jpg');
-    background-size: cover;
-    color: black;
-    padding-bottom: 5rem;
 }
 .register-heading {
     margin-bottom: .3rem;
@@ -20,53 +19,80 @@
 #feature{
     width:95%;
 }
-@media (max-width: 480px) {
+@media (max-width: 550px) {
     .section {
-        padding: 0rem 0rem 0rem 0rem;
-    }
-    .register {
-        padding-bottom: 12rem;
-        text-align: center;
-        height: 165px;
+        padding: 1rem 0rem 1rem 0rem;
     }
     .register-heading {
         font-size: 2rem;
     }
-    .logo{
-        width:100px;
-    }
 }
 @media (min-width:481px) {
     .section {
-        padding: 0rem 0 0rem;
+        padding: 2rem 0 2rem;
     }
     .register-heading {
-        font-size: 3rem;
-    }
-    .register {
-        padding: 0rem 0 0rem;
-        height: 190px;
+        font-size: 2.5rem;
     }
     .register-description {
         max-width: 60%;
         margin-left: auto;
         margin-right: auto;
     }
-    .logo{
-        width:180px;
-    }
 }
 @media (min-width: 961px) {
     .section {
-        padding: 0rem 0 0rem;
-    }
-    .register {
-        padding: 0rem 0 0rem;
+        padding: 3rem 0 3rem;
     }
     .register-heading {
-        font-size: 4.0rem;
+        font-size: 3rem;
     }
-    .logo{
-        width: 80%;
-    }
+}
+.modal-window {
+	position:fixed;
+    right:7.5%;
+    background-color: rgba(255,255,255,0.5);
+	z-index:999;
+	opacity:0;
+    width:85%;
+	pointer-events:none;
+	-webkit-transition:all 0.3s;
+	-moz-transition:all 0.3s;
+	transition:all 0.3s;
+    border: 1px #BBBBBB solid;
+    border-radius:6px;
+    padding:30px;
+}
+.modal-window:target {
+	opacity:1;
+	pointer-events:auto;
+}
+.modal-window>div {
+	width:400px;
+	position:relative;
+	margin:10% auto;
+    padding:2rem;
+	background:#fff;
+	color:#444;
+}
+.modal-window header {
+	font-weight:bold;
+}
+.modal-close {
+	color:#aaa;
+	line-height:50px;
+	font-size:80%;
+	position:absolute;
+	right:0;
+	text-align:center;
+	top:0;
+	width:70px;
+	text-decoration:none;
+}
+.modal-close:hover {
+	color:#000;
+}
+.modal-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
 }
