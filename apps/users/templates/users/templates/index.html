@@ -9,15 +9,23 @@
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
-        {% load static %}
-        <script src="{% static 'users/script.js' %}" charset="utf-8"></script>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
+        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
+        <script src="{% static 'users/js/script.js' %}" charset="utf-8"></script>
         <style rel="stylesheet" type="text/css">
             .errorlist{
                 color:red;
             }
-            #card{
-              width:50%;
+            p{
+                margin-top:0px;
+                margin-bottom:0px;
             }
+            /*#card{
+              width:50%;
+            }*/
         </style>
     </head>
     <body>
@@ -26,24 +34,30 @@
             {{message}}
             {% endfor %}
         {% endif %}
-        <div id="register">
-            <h1>Registration</h1>
-            <form id="register_form" action="{% url 'users:register' %}" method="POST">
-                {% csrf_token %}
-                {{register.as_p}}
-                <div id="card"></div>
-                <div id="card_errors"></div>
-
-                <input type="submit" value="Register" />
-            </form>
-        </div>
-        <div id="login">
-            <h1>Login</h1>
-            <form action="{% url 'users:login' %}" method="POST">
-                {% csrf_token %}
-                {{login.as_p}}
-                <input type="submit" value="Login">
-            </form>
+        <div class="section register">
+            <div class="container">
+                <div class="row">
+                    <div class="one-half column" id="register">
+                        <h2>Registration</h2>
+                        <form id="register_form" action="{% url 'users:register' %}" method="POST">
+                            {% csrf_token %}
+                            {{register.as_p}}
+                            <label for="cc">Credit Card #:</label>
+                            <div id="card"></div>
+                            <div id="card_errors"></div><br>
+                            <input type="submit" value="Register" />
+                        </form>
+                    </div>
+                    <div class="one-half column" id="login">
+                        <h2>Login</h2>
+                        <form action="{% url 'users:login' %}" method="POST">
+                            {% csrf_token %}
+                            {{login.as_p}}
+                            <input type="submit" value="Login">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
