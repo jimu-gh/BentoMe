@@ -10,8 +10,8 @@
     </div>
     <div class="menu bar">
       <ul>
-        <li><a href="/adddish"></a></li>
-        <li>will be some link</li>
+        <li><a href="{% url 'admin:adddish' %}">Add a Dish</a></li>
+        <li><a href="{% url 'admin:menu' %}">Plan the Menu</a></li>
         <li>will be some link</li>
       </ul>
     </div>
@@ -19,10 +19,10 @@
       <h2>Previous Meals</h2>
       {%for meal in meals%}
       <div class="meals">
-        <!-- place holder for meal date -->
-        <!-- place holder for meal name -->
-        <!-- place holder for average rating -->
-        <!-- place holder for units sold -->
+        <!-- {{meal.date}} -->
+        <!-- {{meal.name}} -->
+        <!-- {{meal.avgrating}} -->
+        <!-- {{meal.unitssold}} -->
       </div>
       {% end for %}
     </div>

@@ -5,6 +5,9 @@
     <title>Add Dish</title>
   </head>
   <body>
+    <div class="header">
+      <a href="/logout">Logout</a>
+    </div>
     <div class="adding">
       <form class="add dish" action="{% url 'admin:add' %}" method="post">
         {% csrf_token %}
@@ -13,8 +16,8 @@
           <option value="2">Side Dish</option>
         </select>
         Ingredients: <textarea name="ingredients" rows="8" cols="80"></textarea>
-        Price: <input type="number" name="price" value="" step=".01">
-        <input type="submit" name="Add Dish" value="">
+        Price: <input type="number" name="price" value="" step="1">
+        <input type="submit" name="Add Dish" value="Add Dish">
       </form>
     </div>
   </body>
