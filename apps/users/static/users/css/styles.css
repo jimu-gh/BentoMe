@@ -24,7 +24,7 @@
         padding: 1rem 0rem 1rem 0rem;
     }
     .register-heading {
-        font-size: 2rem;
+        font-size: 4rem;
     }
 }
 @media (min-width:481px) {
@@ -32,7 +32,7 @@
         padding: 2rem 0 2rem;
     }
     .register-heading {
-        font-size: 2.5rem;
+        font-size: 5rem;
     }
     .register-description {
         max-width: 60%;
@@ -45,7 +45,7 @@
         padding: 3rem 0 3rem;
     }
     .register-heading {
-        font-size: 3rem;
+        font-size: 6rem;
     }
 }
 .modal-window {
@@ -74,9 +74,6 @@
     padding:2rem;
 	background:#fff;
 	color:#444;
-}
-.modal-window header {
-	font-weight:bold;
 }
 .modal-close {
 	color:#aaa;
