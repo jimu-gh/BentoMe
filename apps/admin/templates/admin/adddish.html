@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Dish</title>
+  </head>
+  <body>
+    <div class="adding">
+      <form class="add dish" action="{% url 'admin:add' %}" method="post">
+        {% csrf_token %}
+        Dish Type:<select class="dishtype" name="dishtype">
+          <option value="1">Main Dish</option>
+          <option value="2">Side Dish</option>
+        </select>
+        Ingredients: <textarea name="ingredients" rows="8" cols="80"></textarea>
+        Price: <input type="number" name="price" value="" step=".01">
+        <input type="submit" name="Add Dish" value="">
+      </form>
+    </div>
+  </body>
+</html>
