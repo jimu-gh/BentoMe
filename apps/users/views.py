@@ -63,7 +63,7 @@ def login(request):
     if request.method == "POST":
         response = User.objects.login(request.POST)
         if type(response) is list:
-            for errors in response:
+            for error in response:
                 messages.error(request, error)
             return redirect(reverse('users:index'))
         else:
@@ -74,6 +74,7 @@ def login(request):
             return redirect(reverse('home:dashboard'))
 
 def logout(request):
+    print "test"
     if 'user' in request.session:
         request.session.pop('user')
     return redirect(reverse('home:index'))

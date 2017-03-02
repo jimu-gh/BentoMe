@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 def index(request):
     context={
     'message' : Message.objects.all(),
-    'meals' : Meals.objects.all()
+    'meals' : Meal.objects.all()
     }
     return render(request, 'adminbento/index.html')
 
