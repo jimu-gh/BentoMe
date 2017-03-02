@@ -13,6 +13,7 @@ class UserManager(models.Manager):
             user = User.objects.get(email=post_data['email'])
         except:
             errors.append("Incorrect Email/Password")
+            return errors
 
         if user.check_password(post_data['password']):
             return user
