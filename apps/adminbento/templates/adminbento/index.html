@@ -2,36 +2,34 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Admin Landing</title>
+    <title>Admin Login</title>
   </head>
   <body>
-    <div class="header">
-      <a href="/logout">Logout</a>
-    </div>
-    <div class="menu bar">
-      <ul>
-        <li><a href="{% url 'adminbento:dish' %}">Add a Dish</a></li>
-        <li><a href="{% url 'adminbento:menu' %}">Plan the Menu</a></li>
-        <li>will be some link</li>
-      </ul>
-    </div>
-    <div class="previous meals">
-      <h2>Previous Meals</h2>
-      {% for meal in meals %}
-      <div class="meals">
-        {{meal.live_date}}
-        {{meal__main_dishes}}
-        {{meal__side_dishes}}
-        <!-- {{meal.avgrating}} -->
-        <!-- {{meal.unitssold}} -->
+  <body>
+      {% if messages %}
+          {% for message in messages %}
+          {{message}}
+          {% endfor %}
+      {% endif %}
+      <div class="section register">
+          <div class="container">
+              <div class="row">
+              </div>
+              <div class="row">
+                  <div class="twelve columns">
+                      <div id="open-log" class="modal-window">
+                          <h3 class="register-heading">Login</h3>
+                          <form action="{% url 'adminbento:dashboard' %}" method="POST">
+                              {% csrf_token %}
+                              {{login.as_p}}
+                              <input type="submit" value="Submit">
+                          </form>
+                          <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-      {% endfor %}
-    </div>
-    <div class="messages">
-      <h2>messages</h2>
-          <p>{{message.message}}</p>
-          <i>posted by: {{message.user}} on {{message.created_at}}</i>
-        </div>
-    </div>
+  </body>
   </body>
 </html>
