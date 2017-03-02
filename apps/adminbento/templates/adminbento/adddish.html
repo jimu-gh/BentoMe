@@ -5,16 +5,20 @@
     <title>Add Dish</title>
   </head>
   <body>
+    <div class="header">
+      <a href="/admin">Home</a>
+      <a href="/logout">Logout</a>
+    </div>
     <div class="adding">
-      <form class="add dish" action="{% url 'admin:add' %}" method="post">
+      <form class="add dish" action="{% url 'adminbento:add' %}" method="post">
         {% csrf_token %}
         Dish Type:<select class="dishtype" name="dishtype">
           <option value="1">Main Dish</option>
           <option value="2">Side Dish</option>
         </select>
         Ingredients: <textarea name="ingredients" rows="8" cols="80"></textarea>
-        Price: <input type="number" name="price" value="" step=".01">
-        <input type="submit" name="Add Dish" value="">
+        Price: <input type="number" name="price" value="" step="1">
+        <input type="submit" name="Add Dish" value="Add Dish">
       </form>
     </div>
   </body>
