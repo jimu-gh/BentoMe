@@ -40,7 +40,8 @@ class DishForm(forms.Form):
 
     ingredients = forms.MultipleChoiceField(
         required = True,
-        choices = Ingredient.objects.all().order_by('display_name'),
+        choices = [(ingredient.id, ingredient.display_name) for ingredient in Ingredient.objects.all().order_by('display_name')],
+        widget = forms.CheckboxSelectMultiple()
     )
 
     categories = forms.CharField(
@@ -51,4 +52,10 @@ class DishForm(forms.Form):
 
     image = forms.FileField(
         required = False,
+    )
+
+class IngredientForm(forms.Form):
+    display_name = forms.CharField(
+        required = True,
+        label = "Name"
     )

@@ -9,6 +9,14 @@
     {{meal_form.as_p}}
 
     <h4>Add Dish</h4>
-    {{dish_form.as_p}}
+    <form class="" action="{% url 'adminbento:add' %}" method="post">
+      {% csrf_token %}
+      {{dish_form.as_p}}
+      <input type="submit" name="" value="Dish">
+    </form>
+
+    <h4>Add Ingredient</h4>
+    {{ingredient_form.as_p}}
+
   </body>
 </html>
