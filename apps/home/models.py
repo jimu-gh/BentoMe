@@ -55,7 +55,7 @@ class Main_Dish(models.Model):
 class Meal_Order(models.Model):
     user = models.ForeignKey(User, related_name="user_orders")
     meal = models.ForeignKey(Meal, related_name="meal_orders")
-    side = models.IntegerField(default=0)
+    sides = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
