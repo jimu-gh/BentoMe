@@ -10,29 +10,28 @@
     </div>
     <div class="menu bar">
       <ul>
-        <li><a href="/adddish"></a></li>
-        <li>will be some link</li>
+        <li><a href="{% url 'adminbento:dish' %}">Add a Dish</a></li>
+        <li><a href="{% url 'adminbento:menu' %}">Plan the Menu</a></li>
         <li>will be some link</li>
       </ul>
     </div>
     <div class="previous meals">
       <h2>Previous Meals</h2>
-      {%for meal in meals%}
+      {% for meal in meals %}
       <div class="meals">
-        <!-- place holder for meal date -->
-        <!-- place holder for meal name -->
-        <!-- place holder for average rating -->
-        <!-- place holder for units sold -->
+        {{meal.live_date}}
+        {{meal__main_dishes}}
+        {{meal__side_dishes}}
+        <!-- {{meal.avgrating}} -->
+        <!-- {{meal.unitssold}} -->
       </div>
-      {% end for %}
+      {% endfor %}
     </div>
     <div class="messages">
-      <h2>messages</h2>.
-
+      <h2>messages</h2>
           <p>{{message.message}}</p>
-          <i>posted by: {{message.user}} on {{message.createdon}}</i>
+          <i>posted by: {{message.user}} on {{message.created_at}}</i>
         </div>
-      {% endfor %}
     </div>
   </body>
 </html>
