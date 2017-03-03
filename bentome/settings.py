@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os, stripe
 
 #stripe api key
-stripe.api_key = 'sk_live_5OnvqSkghaWGNZVYdOgFZXzU'
+stripe.api_key = 'sk_test_tZYH3ePWR2JAbAgT3O0gORoR'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
