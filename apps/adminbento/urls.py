@@ -9,9 +9,5 @@ urlpatterns = [
     url(r'^add$', views.add, name='add'),
     url(r'^menu$', views.menu, name='menu'),
     url(r'^dummy$', views.dummy, name='dummy'),
-<<<<<<< HEAD
     url(r'^logout/$', views.logout, name='logout'),
-=======
-    url(r'^logout$', views.logout, name='logout')
->>>>>>> 8224b1b55b07d16c8ede8f1209a29af3a0a52713
 ]
