@@ -19,7 +19,7 @@ def dashboard(request):
 
     context = {
         'next_week_meals': meals_for_next_week,
-        'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date'),
+        'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date')
     }
 
     def place_week_meal_in_context(context, meals_for_the_week):
