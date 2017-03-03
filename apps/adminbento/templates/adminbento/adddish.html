@@ -6,20 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add Dish</title>
     {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'adminbento/css/styles.css' %}" />
     <link rel="stylesheet" href="{% static 'adminbento/css/normalize.css' %}" />
     <link rel="stylesheet" href="{% static 'adminbento/css/skeleton.css' %}" />
   </head>
   <body>
-    <div class="header">
-      <a href="{% url 'adminbento:dashboard' %}">Home</a>
-      <a href="{% url 'adminbento:logout' %}">Logout</a>
-    </div>
-    <div class="adding">
-      <form enctype="multipart/form-data" class="add dish" action="{% url 'adminbento:add_dish' %}" method="post">
-        {% csrf_token %}
-      {{dish_form.as_p}}
-        <input type="submit" name="Add Dish" value="Add Dish">
-      </form>
-    </div>
+      <div class="section">
+          <div class="container">
+              <div class="row">
+                  <div class="twelve columns">
+                      <a class="button" href="{% url 'adminbento:dashboard' %}">Home</a>
+                      <a class="button" href="{% url 'adminbento:menu' %}">Plan Menu</a>
+                      <a class="button" href="{% url 'adminbento:logout' %}">Logout</a>
+                  </div>
+              </div>
+              <div class="row">
+                    <div class="twelve columns">
+                      <form enctype="multipart/form-data" class="add dish" action="{% url 'adminbento:add_dish' %}" method="post">
+                        {% csrf_token %}
+                        {{dish_form.as_table}}
+                        <input type="submit" name="Add Dish" value="Add Dish">
+                      </form>
+                    </div>
+              </div>
+          </div>
+      </div>
   </body>
 </html>

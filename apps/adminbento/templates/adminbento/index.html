@@ -7,7 +7,7 @@
         <title>Admin Login</title>
         {% load staticfiles %}
         <script src="{% static 'home/js/jquery.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
     </head>
@@ -21,8 +21,6 @@
       <div class="section register">
           <div class="container">
               <div class="row">
-              </div>
-              <div class="row">
                   <div class="twelve columns">
                       <div id="open-log" class="modal-window">
                           <h3 class="register-heading">Login</h3>
@@ -31,7 +29,6 @@
                               {{login.as_p}}
                               <input type="submit" value="Submit">
                           </form>
-                          <a href="#modal-close" title="Close" class="modal-close">Close</a>
                       </div>
                   </div>
               </div>
