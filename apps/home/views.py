@@ -56,7 +56,7 @@ def dashboard(request):
 
 def order_meal(request, meal_id):
     if 'user' not in request.session:
-        return redirect(reverse('users:index'))
+        return redirect(reverse('home:index'))
 
     if request.method == "POST":
 

@@ -17,15 +17,12 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="six columns">
+                <div class="twelve columns">
                     <h1 class="register-heading">{{user.first_name}} {{user.last_name}}</h1>
-                </div>
-                <div class="six columns top">
-                    <a class="button" href="{% url 'home:dashboard' %}">Back</a>
                 </div>
             </div>
             <div class="row">
-                <div class="six columns orders">
+                <div class="six columns">
                     <h3 class="show-heading">Current Orders</h3>
                     {% if current_orders %}
                         {% for order in current_orders %}
@@ -33,7 +30,7 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <div class="six columns orders">
+                <div class="six columns">
                     <h3 class="show-heading">Past Orders</h3>
                     {% if past_orders %}
                         {% for order in past_orders %}
@@ -43,16 +40,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="twelve columns">
-                    <label for="new_card">Current Card: <em>****{{user.last_4_digits}}</em></label>
-
-
-
-
-                </div>
                 <div class="twelve columns" id="cardcontainer">
+                    <label for="new_card">Current Card: <em>****{{user.last_4_digits}}</em></label>
                     <button type="button" id="new_card">Change Card</button>
-                    <a class="button button-primary" id="reset">Reset</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="six columns">
+                    <a class="button" id="reset">Reset</a>
+                </div>
+                <div class="six columns">
+                    <a class="button" href="{% url 'home:dashboard' %}">Back</a>
                 </div>
             </div>
         </div>
