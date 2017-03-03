@@ -19,6 +19,11 @@
             <div class="row">
                 <div class="twelve columns">
                     <h1 class="register-heading">{{user.first_name}} {{user.last_name}}</h1>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -33,9 +38,25 @@
                 <div class="six columns">
                     <h3 class="show-heading">Past Orders</h3>
                     {% if past_orders %}
-                        {% for order in past_orders %}
-                            <h4 class="show-description">{{order.meal.live_date}}</h4>
-                            <a href="#" class="feedback">Feedback</a></h5>
+                        {% for meal in past_orders %}
+                            <h5 class="show-description">{{meal.meal.live_date}}<a href="#{{meal.meal.id}}" class="feedback">✎</a></h5>
+                            <div id="{{meal.meal.id}}" class="feedback-window">
+                                <h3 class="show-heading">Send feedback for {{meal.meal.live_date}}</h3>
+                                <form id="feedback_form" action="{% url 'users:create_feedback' %}" method="POST">
+                                    {% csrf_token %}
+                                    <label for="message">Message:</label>
+                                    <div class="row">
+                                        <div class="six columns">
+                                            <input type="textarea" name="message">
+                                            <input type="hidden" name="meal_id" value="{{meal.meal.id}}">
+                                        </div>
+                                        <div class="six columns">
+                                            <input type="submit" value="Submit" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <a href="#feedback-close" title="Close" class="feedback-close">Close</a>
+                            </div>
                         {% endfor %}
                     {% endif %}
                 </div>

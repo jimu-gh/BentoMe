@@ -17,30 +17,24 @@
         <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
         <script src="{% static 'users/js/script.js' %}" charset="utf-8"></script>
         <style rel="stylesheet" type="text/css">
-            .errorlist{
+            .error{
                 color:red;
             }
-            p{
-                margin-top:-6px;
-                margin-bottom:-6px;
-            }
-            /*#card{
-              width:50%;
-            }*/
         </style>
     </head>
     <body>
-        {% if messages %}
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}
-        {% endif %}
         <div class="section register">
             <div class="container">
                 <div class="row">
                     <div class="twelve columns">
+                        <a class="button button-primary" href="{% url 'home:dashboard' %}">Home</a><br>
                         <a class="button" href="#open-reg">Register</a>
-                        <a class="button" href="#open-log">Login</a>
+                        <a class="button" href="#open-log">Login</a><br>
+                        {% if messages %}
+                            {% for message in messages %}
+                            <p class="error">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row">

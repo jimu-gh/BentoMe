@@ -49,8 +49,8 @@ class User(models.Model):
         self.admin = True
         user.save()
 
-class Message(models.Model):
-    user = models.ForeignKey(User, related_name="messages")
-    message = models.TextField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+# class Message(models.Model):
+#     user = models.ForeignKey(User, related_name="messages")
+#     message = models.TextField(max_length=500)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)

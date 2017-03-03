@@ -71,3 +71,10 @@ class Rating(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.user.first_name + " : " + str(self.meal.live_date) + " : " + str(self.rating)
+
+class Message(models.Model):
+    user = models.ForeignKey(User, related_name="messages")
+    message = models.TextField(max_length=500)
+    meal = models.ForeignKey(Meal, related_name="messages", blank=True, default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

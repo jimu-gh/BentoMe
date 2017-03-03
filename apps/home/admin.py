@@ -30,3 +30,7 @@ admin.site.register(Meal_Order, Meal_OrderAdmin)
 class RatingAdmin(admin.ModelAdmin):
     pass
 admin.site.register(Rating, RatingAdmin)
+
+class MessageAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(Message, MessageAdmin)

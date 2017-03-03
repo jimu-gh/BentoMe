@@ -30,13 +30,16 @@ def login(request):
                 'admin' : True
             }
             return redirect(reverse('adminbento:dashboard'))
+<<<<<<< HEAD
         else:
             return redirect(reverse('users:index'))
+=======
+>>>>>>> c883324d4af25811f3dfd31fbbddf7312148b618
 
 def logout(request):
     if 'user' in request.session:
         request.session.pop('user')
-    return redirect(reverse('admin:index'))
+    return redirect(reverse('adminbento:index'))
 
 def dashboard(request):
     print 'dashboard route hit'
@@ -52,6 +55,7 @@ def dashboard(request):
         print 'admin not detected'
         return redirect(reverse('adminbento:index'))
 def dish(request):
+<<<<<<< HEAD
     if  'admin' in request.session['user']:
         return render(request, 'adminbento/adddish.html',
         {
@@ -64,6 +68,16 @@ def dish(request):
     else:
         print 'admin not detected'
         return redirect(reverse('adminbento:index'))
+=======
+    return render(request, 'adminbento/adddish.html',
+    {
+        'meal_form': MealForm(),
+        'dish_form': DishForm(),
+        'ingredient_form': IngredientForm()
+    })
+    ##refrence the model creation once method is determined
+    return redirect(reverse('adminbento:dish'))
+>>>>>>> c883324d4af25811f3dfd31fbbddf7312148b618
 
 def add(request):
     if request.method == "POST":
@@ -79,7 +93,7 @@ def dummy(request):
         'ingredient_form': IngredientForm()
     })
     ##refrence the model creation once method is determined
-    return redirect(reverse('bentoadmin:dish'))
+    return redirect(reverse('adminbento:dish'))
 
 def menu(request):
     if  'admin' in request.session['user']:
