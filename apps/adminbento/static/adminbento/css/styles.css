@@ -27,6 +27,9 @@
 	display:inline-block;
 	padding:5px;
 }
+#id_side_dish{
+	height:30px;
+}
 @media (max-width: 480px) {
     .section {
         padding: 1rem 0rem 1rem 0rem;
