@@ -6,46 +6,48 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Maria's Page</title>
       {% load staticfiles %}
-      <script src="{% static 'home/js/jquery.js' %}"></script>
-      <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
+      <script src="{% static 'adminbento/js/jquery.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'adminbento/css/styles.css' %}" />
+      <link rel="stylesheet" href="{% static 'adminbento/css/normalize.css' %}" />
+      <link rel="stylesheet" href="{% static 'adminbento/css/skeleton.css' %}" />
   </head>
   <body>
-    <div class="header">
-      <a href="{% url 'adminbento:logout' %}">Logout</a>
-    </div>
-    <div class="menu bar">
-      <ul>
-        <li><a href="{% url 'adminbento:dish' %}">Add a Dish</a></li>
-        <li><a href="{% url 'adminbento:menu' %}">Plan the Menu</a></li>
-        <li>will be some link</li>
-      </ul>
-    </div>
-    <div class="previous meals">
-      <h2>Previous Meals</h2>
-      {% for meal in meals %}
-      <div class="meals">
-        <p>Meal Date: {{meal.live_date}}</p>
-        <p>Main Dish:{% for main in meal.main_dishes.all %}
-          {{main.display_name}}
-        {% endfor %}</p>
-        <p>Side Dishes:{% for side in meal.side_dishes.all %}
-          {{side.display_name}}
-        {% endfor %}</p>
-        Units Sold: {{meal.num_sold}}
-        <!-- {{meal.unitssold}} -->
-      </div>
-      {% endfor %}
-    </div>
-    <div class="messages">
-      <h2>Messages</h2>
-        {% for message in messages%}
-          <p>{{message.message}}</p>
-          <i>posted by: {{message.user.first_name}} at: {{message.created_at}}</i>
-        {% endfor %}
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="twelve columns">
+                        <h2 class="show-heading">Welcome, Maria</h2>
+                        <a class="button" href="{% url 'adminbento:dish' %}">Add Dish</a>
+                        <a class="button" href="{% url 'adminbento:menu' %}">Plan Menu</a>
+                        <a class="button" href="{% url 'adminbento:logout' %}">Logout</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="six columns">
+                        <h4 class="show-heading">Previous Meals</h4>
+                        {% for meal in meals %}
+                        <div class="meals">
+                            <h4 class="show-description">Meal Date: {{meal.live_date}}</h4>
+                            <h5 class="dish-heading">Main Dish:{% for main in meal.main_dishes.all %}</h5>
+                              <h6 class="dish-element">• {{main.display_name}}</h6>
+                            {% endfor %}
+                            <h5 class="dish-heading">Side Dishes:{% for side in meal.side_dishes.all %}</h5>
+                              <h6 class="dish-element">• {{side.display_name}}</h6>
+                            {% endfor %}
+                            <h5 class="dish-heading">Units Sold: {{meal.num_sold}}</h5>
+                            <!-- {{meal.unitssold}} -->
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="six columns">
+                        <h4 class="show-heading">Messages</h4>
+                          {% for message in messages%}
+                            <h4 class="message">{{message.message}}</h4>
+                            <h2 class="timestamp"><i>posted by: {{message.user.first_name}} at: {{message.created_at}}</i></h2>
+                          {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
   </body>
 </html>

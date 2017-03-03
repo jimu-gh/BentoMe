@@ -20,6 +20,9 @@
 #feature{
     width:95%;
 }
+.dish-heading, .dish-element{
+	text-align: left;
+}
 @media (max-width: 480px) {
     .section {
         padding: 1rem 0rem 1rem 0rem;
@@ -30,11 +33,23 @@
     .show-heading {
         font-size: 2.0rem;
     }
-    .show-description {
+    .dish-heading {
+        font-size: 1.75rem;
+    }
+    .dish-element {
         font-size: 1.5rem;
+    }
+    .show-description {
+        font-size: 1.75rem;
     }
 	.feedback{
 		font-size:1.25rem;
+	}
+	.message{
+		font-size:1.75rem;
+	}
+	.timestamp{
+		font-size:1.5rem;
 	}
 }
 @media (min-width:481px) {
@@ -53,9 +68,21 @@
 		font-size:3rem;
 	}
     .show-description {
-		font-size:2rem;
+		font-size:2.5rem;
     }
+	.dish-heading {
+		font-size: 2rem;
+	}
+	.dish-element {
+		font-size: 1.75rem;
+	}
 	.feedback{
+		font-size:1.75rem;
+	}
+	.message{
+		font-size:2rem;
+	}
+	.timestamp{
 		font-size:1.75rem;
 	}
 }
@@ -74,6 +101,12 @@
 	}
 	.feedback{
 		font-size:2.25rem;
+	}
+	.message{
+		font-size:2.75rem;
+	}
+	.timestamp{
+		font-size:2rem;
 	}
 }
 .modal-window {
