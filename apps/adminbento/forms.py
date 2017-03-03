@@ -39,10 +39,10 @@ class DishForm(forms.Form):
         widget = forms.CheckboxSelectMultiple()
     )
     addingredients = forms.CharField(
-        required = True,
+        required = False,
         max_length=300,
         widget= forms.Textarea(),
-        label = "Additional Ingredients"
+        label = "Additional Ingredients (Comma separated)"
     )
     categories = forms.CharField(
         required = False,

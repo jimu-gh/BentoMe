@@ -10,7 +10,7 @@
       <a href="/logout">Logout</a>
     </div>
     <div class="adding">
-      <form class="add dish" action="{% url 'adminbento:add' %}" method="post">
+      <form enctype="multipart/form-data" class="add dish" action="{% url 'adminbento:add_dish' %}" method="post">
         {% csrf_token %}
       {{dish_form.as_p}}
         <input type="submit" name="Add Dish" value="Add Dish">
