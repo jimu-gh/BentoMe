@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from ..home.models import *
 from .forms import *
 from ..users.models import *
@@ -51,26 +52,139 @@ def dashboard(request):
     else:
         print 'admin not detected'
         return redirect(reverse('adminbento:index'))
-def dish(request):
-    if  'admin' in request.session['user']:
-        return render(request, 'adminbento/adddish.html',
-        {
-            'meal_form': MealForm(),
-            'dish_form': DishForm(),
-            'ingredient_form': IngredientForm()
-        })
-        ##refrence the model creation once method is determined
-        return redirect(reverse('adminbento:dish'))
-    else:
-        print 'admin not detected'
-        return redirect(reverse('adminbento:index'))
+
+def add_dish(request):
+    return render(request, 'adminbento/adddish.html',
+    {
+        'meal_form': MealForm(),
+        'dish_form': DishForm(),
+        'ingredient_form': IngredientForm()
+    })
+    ##refrence the model creation once method is determined
+    return redirect(reverse('adminbento:add_dish'))
 
 
-def add(request):
+def create_dish(request):
     if request.method == "POST":
         print request.POST
-        print request.POST.getlist('ingredients')
-    return
+        post_ingredients_ids = request.POST.getlist('ingredients')
+        new_ingredients = request.POST['addingredients']
+        ingredients = []
+
+        if new_ingredients:
+            new_ingredients = new_ingredients.strip().split(',')
+            for i in range(len(new_ingredients)):
+                new_ingredients[i] = new_ingredients[i].strip().title()
+
+        print new_ingredients
+
+        if type(new_ingredients) is list:
+            for ingredient in new_ingredients:
+                display_name = ingredient
+                name = ingredient.lower().replace(" ", "_")
+                try:
+                    duplicate_ingredient = Ingredient.objects.get(name=name)
+                    if duplicate_ingredient not in ingredients:
+                        ingredients.append(duplicate_ingredient)
+                except:
+                    created_ingredient = Ingredient.objects.create(
+                        display_name=display_name,
+                        name=name
+                    )
+                    ingredients.append(created_ingredient)
+
+
+        for ingredient_id in post_ingredients_ids:
+            ingredients.append(Ingredient.objects.get(id=int(ingredient_id)))
+
+        print ingredients
+
+        categories = request.POST['categories']
+        dish_categories = []
+
+        if categories:
+            categories = categories.strip().split("#")
+            categories = filter(lambda x: x != "", categories)
+            categories = map(lambda x: x.strip(), categories)
+            for category in categories:
+                name = str(category.lower().encode('utf-8'))
+                try:
+                    duplicate_category = Category.objects.get(name=name)
+                    if duplicate_category not in dish_categories:
+                        dish_categories.append(duplicate_category)
+                except:
+                    created_category = Category.objects.create(
+                        name=name
+                    )
+                    dish_categories.append(created_category)
+
+        image = request.FILES['image'] if 'image' in request.FILES else None
+
+        dish_display_name = request.POST['display_name']
+        name = dish_display_name.strip().lower().replace(" ", "_").replace("(", "").replace(")", "")
+
+        if request.POST['dish_type'] == "main":
+            try:
+                duplicate_main_dish = Main_Dish.objects.get(name=name)
+                messages.error(request, "Main Dish already exists, added ingredients and categories if they were not previously attached")
+                for ingredient in ingredients:
+                    duplicate_main_dish.ingredients.add(ingredient)
+                for category in categories:
+                    duplicate_main_dish.categories.add(category)
+                if image:
+                    duplicate_main_dish.image = image
+                duplicate_main_dish.save()
+                return redirect(reverse('adminbento:add_meal'))
+            except:
+                created_main_dish = Main_Dish.objects.create(
+                    display_name=dish_display_name,
+                    name=name,
+                    price=700,
+                )
+                for ingredient in ingredients:
+                    created_main_dish.ingredients.add(ingredient)
+                for category in dish_categories:
+                    created_main_dish.categories.add(category)
+                if image:
+                    created_main_dish.image = image
+                created_main_dish.save()
+                messages.success(request, "Main Dish creation for, " + created_main_dish.display_name + " was successful")
+        else:
+            try:
+                duplicate_side_dish = Side_Dish.objects.get(name=name)
+                messages.error(request, "Side Dish already exists, added ingredients and categories if they were not previously attached")
+                for ingredient in ingredients:
+                    duplicate_side_dish.ingredients.add(ingredient)
+                for category in dish_categories:
+                    duplicate_side_dish.categories.add(category)
+                if image:
+                    duplicate_side_dish.image = image
+                duplicate_side_dish.save()
+                return redirect(reverse('adminbento:add_meal'))
+
+                crea
+            except:
+                created_side_dish = Side_Dish.objects.create(
+                    display_name=dish_display_name,
+                    name=name,
+                    price=700,
+                )
+                for ingredient in ingredients:
+                    created_side_dish.ingredients.add(ingredient)
+                for category in dish_categories:
+                    created_side_dish.categories.add(category)
+                if image:
+                    created_side_dish.image = image
+                created_side_dish.save()
+                messages.success(request, "Side Dish creation for, " + created_side_dish.display_name + " was successful")
+
+        return redirect(reverse('adminbento:add_meal'))
+
+def add_meal(request):
+    return render(request, 'adminbento/menu.html')
+
+def create_meal(request):
+    pass
 
 def dummy(request):
     return render(request, 'adminbento/dummy.html',
