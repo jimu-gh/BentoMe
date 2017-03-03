@@ -98,3 +98,16 @@ def show(request, user_id):
     }
 
     return render(request, 'users/templates/show.html', context)
+
+def edit_card(request):
+    if 'user' not in request.session:
+        return redirect(reverse('users:index'))
+
+    if request.method == "POST":
+        customer = User.objects.get(id=request.session['user']['id'])
+
+        customer.card = request.POST['stripe_token']
+
+        customer.save()
+
+        return redirect(reverse('home:dashboard'))

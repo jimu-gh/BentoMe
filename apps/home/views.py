@@ -57,3 +57,32 @@ def order_meal(request, meal_id):
             return redirect(reverse('home:dashboard'))
 
         user = User.objects.get(id=request.session['user']['id'])
+
+        num_sides = 0
+
+        if int(request.POST['sides']) == 3:
+            num_sides = 2
+        elif int(request.POST['sides']) == 1 or int(request.POST['sides']) == 2:
+            num_sides = 1
+
+        total_price = 700 + (num_sides * 100)
+
+        charge = stripe.Charge.create(
+            amount=total_price,
+            currency="usd",
+            description="Order for: " + str(meal.live_date),
+            customer=user.stripe_id,
+            receipt_email=user.email
+        )
+
+        if charge.outcome.type == 'authorized':
+            Meal_Order.objects.create(
+                user=user,
+                meal=meal,
+                sides=int(request.POST['sides'])
+            )
+            messages.success(request, "Order was created successfully")
+            return redirect(reverse('home:dashboard'))
+        else:
+            messages.error(request, "Order was declined for card ending in: " + user.last_4_digits)
+            return redirect(reverse('home:dashboard'))
