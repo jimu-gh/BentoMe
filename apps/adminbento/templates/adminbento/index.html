@@ -27,7 +27,7 @@
                   <div class="twelve columns">
                       <div id="open-log" class="modal-window">
                           <h3 class="register-heading">Login</h3>
-                          <form action="{% url 'adminbento:dashboard' %}" method="POST">
+                          <form action="{% url 'adminbento:login' %}" method="POST">
                               {% csrf_token %}
                               {{login.as_p}}
                               <input type="submit" value="Submit">

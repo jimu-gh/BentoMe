@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="header">
-      <a href="/logout">Logout</a>
+      <a href="{% url 'adminbento:logout' %}">Logout</a>
     </div>
     <div class="menu bar">
       <ul>
@@ -41,8 +41,10 @@
     </div>
     <div class="messages">
       <h2>Messages</h2>
+        {% for message in messages%}
           <p>{{message.message}}</p>
-          <i>posted by: {{message.user}} at: {{message.created_at}}</i>
+          <i>posted by: {{message.user.first_name}} at: {{message.created_at}}</i>
+        {% endfor %}
         </div>
     </div>
   </body>
