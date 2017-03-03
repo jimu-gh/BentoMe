@@ -10,7 +10,7 @@ from django.contrib import messages
 from ..users.forms import RegisterForm, LoginForm
 # Create your views here.
 def index(request):
-    if 'admin' in request.session:
+    if 'admin' in request.session['user']:
         return redirect(reverse('adminbento:dashboard'))
     context = { 'login': LoginForm()}
     return render(request, 'adminbento/index.html', context)
@@ -18,7 +18,6 @@ def index(request):
 def login(request):
     if request.method == "POST":
         response = User.objects.login(request.POST)
-        print 'login path hit'
         if type(response) is list:
             for errors in response:
                 messages.error(request, errors)
@@ -40,18 +39,16 @@ def logout(request):
     return redirect(reverse('adminbento:index'))
 
 def dashboard(request):
-    print 'dashboard route hit'
-    print request.session['user']['admin']
-    if  'admin' in request.session['user']:
-        print 'admin detected'
-        context={
-        'messages' : Message.objects.filter(meal__live_date__lt=datetime.date.today()),
-        'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
-        }
-        return render(request, 'adminbento/dashboard.html', context)
-    else:
+    if  'admin' not in request.session['user']:
         print 'admin not detected'
         return redirect(reverse('adminbento:index'))
+
+    print 'admin detected'
+    context={
+        'messages' : Message.objects.filter(meal__live_date__lt=datetime.date.today()),
+        'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
+    }
+    return render(request, 'adminbento/dashboard.html', context)
 
 def add_dish(request):
     return render(request, 'adminbento/adddish.html',
@@ -195,7 +192,6 @@ def create_dish(request):
 
 def add_meal(request):
     if  'admin' not in request.session['user']:
-        print 'admin not detected'
         return redirect(reverse('adminbento:index'))
 
     today = datetime.date.today()
@@ -215,12 +211,8 @@ def add_meal(request):
         dates_of_next_two_weeks[0][num] = start_of_next_week + day
 
     for num in range(5):
-        print num
         day = datetime.timedelta(days=num)
         dates_of_next_two_weeks[1][num] = start_of_week_after_next_week + day
-
-    print dates_of_next_two_weeks
-
 
     context = {
         'meal_form' : MealForm(),
@@ -232,12 +224,42 @@ def add_meal(request):
 
 def create_meal(request):
     if request.method == "POST":
-        print request.POST
+        meal_live_date = datetime.date.fromordinal(int(request.POST['meal_date']))
+        sides = request.POST.getlist('side_dish')
 
-    return
+        if len(sides) > 2:
+            messages.error("Can only have at most 2 side dishes")
+            return redirect(reverse('adminbento:add_meal'))
+
+        entree = request.POST['main_dish']
+
+        for i in range(len(sides)):
+            try:
+                side_dish = Side_Dish.objects.get(id=int(sides[i]))
+                sides[i] = side_dish
+            except:
+                messages.error(request, "Side dish does not exist")
+                return redirect(reverse("adminbento:add_meal"))
+
+        try:
+            entree = Main_Dish.objects.get(id=int(entree))
+        except:
+            messages.error(request, "Main dish does not exist please try again")
+            return redirect(reverse('adminbento:add_meal'))
+
+        meal = Meal.objects.create(
+            live_date=meal_live_date,
+        )
+        meal.main_dishes.add(entree)
+        for side in sides:
+            meal.side_dishes.add(side)
+        meal.save()
+
+        print meal
+        messages.success(request, "Meal for " + str(meal.live_date) + " was created successfully")
+        return redirect(reverse('adminbento:dashboard'))
 
 def logout(request):
-    print "test"
     if 'user' in request.session:
         request.session.pop('user')
     return redirect(reverse('home:index'))

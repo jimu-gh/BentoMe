@@ -42,7 +42,7 @@
                 {% csrf_token %}
                 {{meal_form.as_p}}
                 <p><a href="{% url 'adminbento:add_dish' %}"><button type="button" name="button">Add a Dish</button></a></p>
-                <input type="hidden" name="meal_date" value="{{live_date}}">
+                <input type="hidden" name="meal_date" value="{{live_date.toordinal}}">
                 <input type="submit" value="Add Meal" />
               </form>
             </div>
