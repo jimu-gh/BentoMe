@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 from .models import *
+from ..users.models import *
 
 import datetime, stripe
 
@@ -20,7 +22,15 @@ def dashboard(request):
     context = {
         'next_week_meals': meals_for_next_week,
         'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date')
+
     }
+
+    user = None
+
+    if 'user' in request.session:
+        user = User.objects.get(id=request.session['user']['id'])
+        user_orders = user.user_orders.all()
+        context['user_orders'] = [ order.meal.live_date for order in user_orders ]
 
     def place_week_meal_in_context(context, meals_for_the_week):
         for meal in meals_for_the_week:
@@ -45,10 +55,19 @@ def dashboard(request):
     return render(request, 'home/dashboard.html', context)
 
 def order_meal(request, meal_id):
-    if 'user' not in session:
+    if 'user' not in request.session:
         return redirect(reverse('users:index'))
 
     if request.method == "POST":
+
+        user = User.objects.get(id=request.session['user']['id'])
+
+        if not user.check_password(request.POST['password']):
+            messages.error(request, "Wrong password")
+            return redirect(reverse('users:index'))
+
+        print request.POST
+
         today = datetime.date.today()
         try:
             meal = Meal.objects.filter(live_date__gte=today).get(id=meal_id)
@@ -56,14 +75,18 @@ def order_meal(request, meal_id):
             messages.error(request, "Meal is not available to order you little shit")
             return redirect(reverse('home:dashboard'))
 
-        user = User.objects.get(id=request.session['user']['id'])
+
 
         num_sides = 0
 
-        if int(request.POST['sides']) == 3:
+        if request.POST['sides'] == '3':
             num_sides = 2
-        elif int(request.POST['sides']) == 1 or int(request.POST['sides']) == 2:
+        elif request.POST['sides'] == '0':
+            num_sides = 0
+        else:
             num_sides = 1
+
+        print num_sides
 
         total_price = 700 + (num_sides * 100)
 
@@ -74,6 +97,8 @@ def order_meal(request, meal_id):
             customer=user.stripe_id,
             receipt_email=user.email
         )
+
+        print charge
 
         if charge.outcome.type == 'authorized':
             Meal_Order.objects.create(
