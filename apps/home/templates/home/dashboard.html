@@ -70,15 +70,35 @@
                                     <img src="{{ dish.image.url }}" alt="" class="pix">
                                 {% endif %}
                                 <br>
-                                <form>
-                                    <div class="row">
-                                        {% for side_dish in meal.side_dishes.all %}
-                                            <div class="six columns">
-                                                <label>{{ side_dish.display_name }} </label><input type="checkbox" value="{{ side_dish.name }}" name="{{ side_dish.display_name }}">
+                                {% if meal.live_date not in user_orders %}
+                                  <form action="{% url 'home:order_meal' meal_id=meal.id %}" method="post">
+                                    {% csrf_token %}
+                                      <div class="row">
+                                          <div id="radio_group">
+                                            <div class="twelve columns">
+                                              <input type="radio" name="sides" value="0"> None
                                             </div>
-                                        {% endfor %}
-                                    </div>
-                                </form>
+                                            {% for side in meal.side_dishes.all %}
+                                            <div class="twelve columns">
+                                              <input type="radio" name="sides" value="{{side.name}}"> {{side.display_name}} (+$1.00)
+                                            </div>
+                                            {% endfor %}
+                                            <div class="twelve columns">
+                                              <input type="radio" name="sides" value="3" checked> Both (+$2.00)
+                                            </div>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                        <p>
+                                          <label for="password">Password:</label>
+                                          <input type="password" name="password" value="">
+                                        </p>
+                                      </div>
+                                      <div class="row">
+                                        <input type="submit" name="" value="Order!">
+                                      </div>
+                                  </form>
+                                {% endif %}
                             {% endfor %}
                         </div>
                         {% endfor %}
