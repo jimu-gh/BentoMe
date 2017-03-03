@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{{user.first_name}}</title>
+        <title>Order Status - {{user.first_name}} {{user.last_name}}</title>
         <script src="https://js.stripe.com/v2/"></script>
         <script src="https://js.stripe.com/v3/"></script>
         {% load staticfiles %}
@@ -15,27 +15,46 @@
         <script src="{% static 'users/js/change_card.js'%}" charset="utf-8"></script>
     </head>
     <body>
-        <h2>{{user.first_name}} {{user.last_name}}</h2>
-        {% if current_orders %}
-            <div id="current_orders">
-                {% for order in current_orders %}
-                    <p>{{order.live_date}}</p>
-                {% endfor %}
+        <div class="container">
+            <div class="row">
+                <div class="six columns">
+                    <h1 class="register-heading">{{user.first_name}} {{user.last_name}}</h1>
+                </div>
+                <div class="six columns top">
+                    <a class="button" href="{% url 'home:dashboard' %}">Back</a>
+                </div>
             </div>
-        {% endif %}
-
-        {% if past_orders %}
-            <div id="past_orders">
-                {% for order in past_orders %}
-                    <p>{{order.meal.live_date}} {{order.rating}}</p>
-                {% endfor %}
+            <div class="row">
+                <div class="six columns orders">
+                    <h3 class="show-heading">Current Orders</h3>
+                    {% if current_orders %}
+                        {% for order in current_orders %}
+                            <h5 class="show-description">{{order.live_date}}</h5>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="six columns orders">
+                    <h3 class="show-heading">Past Orders</h3>
+                    {% if past_orders %}
+                        {% for order in past_orders %}
+                            <h5 class="show-description">{{order.meal.live_date}} {{order.rating.rating}}</h5>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
-        {% endif %}
+            <div class="row">
+                <div class="twelve columns">
+                    <label for="new_card">Current Card: <em>****{{user.last_4_digits}}</em></label>
 
-        <p><label for="new_card">Current Card:</label><span><em>****{{user.last_4_digits}}</em></span>
-            <div id="card_change">
-              <button type="button" id="new_card">Change Card</button>
-            </dib>
-        </p>
+
+
+
+                </div>
+                <div class="twelve columns" id="cardcontainer">
+                    <button type="button" id="new_card">Change Card</button>
+                    <a class="button button-primary" id="reset">Reset</a>
+                </div>
+            </div>
+        </div>
   </body>
 </html>

@@ -19,12 +19,18 @@
 #feature{
     width:95%;
 }
-@media (max-width: 550px) {
+@media (max-width: 480px) {
     .section {
         padding: 1rem 0rem 1rem 0rem;
     }
     .register-heading {
         font-size: 4rem;
+    }
+    .show-heading {
+        font-size: 2.0rem;
+    }
+    .show-description {
+        font-size: 1.5rem;
     }
 }
 @media (min-width:481px) {
@@ -39,6 +45,12 @@
         margin-left: auto;
         margin-right: auto;
     }
+	.show-heading {
+		font-size:3rem;
+	}
+    .show-description {
+		font-size:2rem;
+    }
 }
 @media (min-width: 961px) {
     .section {
@@ -47,6 +59,12 @@
     .register-heading {
         font-size: 6rem;
     }
+	.show-heading {
+		font-size:4rem;
+	}
+	.show-description {
+		font-size:3rem;
+	}
 }
 .modal-window {
 	position:fixed;
@@ -92,4 +110,13 @@
 .modal-window h1 {
   font-size: 150%;
   margin: 0 0 15px;
+}
+#name{
+	display:inline-block;
+}
+.top{
+	padding-top:1em;
+}
+.orders{
+	width:40%;
 }

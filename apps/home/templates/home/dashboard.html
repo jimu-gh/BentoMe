@@ -35,7 +35,7 @@
             <div class="container">
                 <div class="row">
                     <div class="twelve columns">
-                        <button>View Orders</button>
+                        <a class="button" href="{% url 'users:show' user_id=request.session.user.id %}">View Orders</a>
                         <a class="button" href="{% url 'users:logout' %}">Logout</a>
                     </div>
                 </div>
