@@ -20,9 +20,9 @@ def dashboard(request):
     meals_for_next_week = Meal.objects.filter(live_date__gt=end_of_week, live_date__lt=end_of_next_week).order_by('live_date')
 
     context = {
+        'this_week_meals': meals_for_the_week,
         'next_week_meals': meals_for_next_week,
         'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date')
-
     }
 
     user = None
