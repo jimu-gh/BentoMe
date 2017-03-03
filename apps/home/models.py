@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from ..users.models import User
 
+
 # Create your models here.
 class Meal(models.Model):
     live_date = models.DateField()
@@ -33,7 +34,7 @@ class Side_Dish(models.Model):
     ingredients = models.ManyToManyField(Ingredient, related_name="side_dishes")
     categories = models.ManyToManyField(Category, related_name="side_dishes")
     image = models.FileField(upload_to='',blank=True)
-    price = models.IntegerField()
+    price = models.IntegerField(default=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
@@ -46,7 +47,7 @@ class Main_Dish(models.Model):
     ingredients = models.ManyToManyField(Ingredient, related_name="main_dishes")
     categories = models.ManyToManyField(Category, related_name="main_dishes")
     image = models.FileField(upload_to='',blank=True)
-    price = models.IntegerField()
+    price = models.IntegerField(default=700)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
