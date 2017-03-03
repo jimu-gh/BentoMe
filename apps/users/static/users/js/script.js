@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // Create a Stripe client
-  var stripe = Stripe('pk_test_c3ASdYwo5jT8jJeDU6VE5ruo');
+  var stripe = Stripe('pk_live_xgI8BuUg1oi8srdrYJznTz2y');
 
   // Create an instance of Elements
   var elements = stripe.elements();
