@@ -19,12 +19,10 @@
 
                 $('.menu-link').click(function(){
                     var div_id = $(this).attr('href');
-                    console.log(div_id, $(this).attr('href'));
-
                     var meal = $(div_id).html();
                     $('#meal-show').html(meal);
-                    $('.menu-link').children('h3').removeClass("active");
-                    $(this).children('h3').addClass("active");
+                    $('.menu-link').children('h2').removeClass("active");
+                    $(this).children('h2').addClass("active");
                     $('.menu-link[href="#1"]').removeClass("active");
                 })
             })
@@ -35,17 +33,17 @@
             <div class="container">
                 <div class="row">
                     <div class="twelve columns">
-                        <button>View Orders</button>
+                        <a class="button" href="{% url 'users:show' user_id=request.session.user.id %}">View Orders</a>
                         <a class="button" href="{% url 'users:logout' %}">Logout</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="twelve columns">
-                        <a href="#1" class="menu-link"><h3 class="menu-heading">Mon</h3></a>
-                        <a href="#2" class="menu-link"><h3 class="menu-heading">Tue</h3></a>
-                        <a href="#3" class="menu-link"><h3 class="menu-heading">Wed</h3></a>
-                        <a href="#4" class="menu-link"><h3 class="menu-heading">Thu</h3></a>
-                        <a href="#5" class="menu-link"><h3 class="menu-heading">Fri</h3></a>
+                        <a href="#1" class="menu-link"><h2 class="menu-heading">M</h2></a>
+                        <a href="#2" class="menu-link"><h2 class="menu-heading">T</h2></a>
+                        <a href="#3" class="menu-link"><h2 class="menu-heading">W</h2></a>
+                        <a href="#4" class="menu-link"><h2 class="menu-heading">Th</h2></a>
+                        <a href="#5" class="menu-link"><h2 class="menu-heading">F</h2></a>
                     </div>
                 </div>
                 <div class="row">

@@ -19,18 +19,22 @@
       <h2>Previous Meals</h2>
       {% for meal in meals %}
       <div class="meals">
-        {{meal.live_date}}
-        {{meal__main_dishes}}
-        {{meal__side_dishes}}
-        <!-- {{meal.avgrating}} -->
+        <p>Meal Date: {{meal.live_date}}</p>
+        <p>Main Dish:{% for main in meal.main_dishes.all %}
+          {{main.display_name}}
+        {% endfor %}</p>
+        <p>Side Dishes:{% for side in meal.side_dishes.all %}
+          {{side.display_name}}
+        {% endfor %}</p>
+        Units Sold: {{meal.num_sold}}
         <!-- {{meal.unitssold}} -->
       </div>
       {% endfor %}
     </div>
     <div class="messages">
-      <h2>messages</h2>
+      <h2>Messages</h2>
           <p>{{message.message}}</p>
-          <i>posted by: {{message.user}} on {{message.created_at}}</i>
+          <i>posted by: {{message.user}} at: {{message.created_at}}</i>
         </div>
     </div>
   </body>
