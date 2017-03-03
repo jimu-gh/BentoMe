@@ -33,17 +33,17 @@ class DishForm(forms.Form):
         label = "Name"
     )
 
-    price = forms.DecimalField(
-        required = True,
-        decimal_places = 2
-    )
-
     ingredients = forms.MultipleChoiceField(
         required = True,
         choices = [(ingredient.id, ingredient.display_name) for ingredient in Ingredient.objects.all().order_by('display_name')],
         widget = forms.CheckboxSelectMultiple()
     )
-
+    addingredients = forms.CharField(
+        required = True,
+        max_length=300,
+        widget= forms.Textarea(),
+        label = "Additional Ingredients"
+    )
     categories = forms.CharField(
         required = False,
         max_length=300,
