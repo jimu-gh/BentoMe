@@ -6,44 +6,45 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Maria's Page</title>
       {% load staticfiles %}
-      <script src="{% static 'home/js/jquery.js' %}"></script>
-      <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
-      <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
+      <script src="{% static 'adminbento/js/jquery.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'adminbento/css/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'adminbento/css/normalize.css' %}" />
+      <link rel="stylesheet" href="{% static 'adminbento/css/skeleton.css' %}" />
   </head>
   <body>
-    <div class="header">
-      <a href="/logout">Logout</a>
-    </div>
-    <div class="menu bar">
-      <ul>
-        <li><a href="{% url 'adminbento:dish' %}">Add a Dish</a></li>
-        <li><a href="{% url 'adminbento:menu' %}">Plan the Menu</a></li>
-        <li>will be some link</li>
-      </ul>
-    </div>
-    <div class="previous meals">
-      <h2>Previous Meals</h2>
-      {% for meal in meals %}
-      <div class="meals">
-        <p>Meal Date: {{meal.live_date}}</p>
-        <p>Main Dish:{% for main in meal.main_dishes.all %}
-          {{main.display_name}}
-        {% endfor %}</p>
-        <p>Side Dishes:{% for side in meal.side_dishes.all %}
-          {{side.display_name}}
-        {% endfor %}</p>
-        Units Sold: {{meal.num_sold}}
-        <!-- {{meal.unitssold}} -->
-      </div>
-      {% endfor %}
-    </div>
-    <div class="messages">
-      <h2>Messages</h2>
-          <p>{{message.message}}</p>
-          <i>posted by: {{message.user}} at: {{message.created_at}}</i>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <a class="button" href="{% url 'adminbento:dish' %}">Add Dish</a>
+                    <a class="button" href="{% url 'adminbento:menu' %}">Plan Menu</a>
+                    <a class="button" href="{% url 'adminbento:logout' %}">Logout</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class=""
+            </div>
+            <div class="previous meals">
+            <h2>Previous Meals</h2>
+            {% for meal in meals %}
+            <div class="meals">
+            <p>Meal Date: {{meal.live_date}}</p>
+            <p>Main Dish:{% for main in meal.main_dishes.all %}
+            {{main.display_name}}
+            {% endfor %}</p>
+            <p>Side Dishes:{% for side in meal.side_dishes.all %}
+            {{side.display_name}}
+            {% endfor %}</p>
+            Units Sold: {{meal.num_sold}}
+            <!-- {{meal.unitssold}} -->
+            </div>
+            {% endfor %}
+            </div>
+            <div class="messages">
+            <h2>Messages</h2>
+            <p>{{message.message}}</p>
+            <i>posted by: {{message.user}} at: {{message.created_at}}</i>
+            </div>
+            </div>
         </div>
-    </div>
   </body>
 </html>

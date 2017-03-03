@@ -39,18 +39,18 @@
                     <h3 class="show-heading">Past Orders</h3>
                     {% if past_orders %}
                         {% for meal in past_orders %}
-                            <h5 class="show-description">{{meal.meal.live_date}}<a href="#{{meal.meal.id}}" class="feedback">✎</a></h5>
+                            <h5 class="show-description">{{meal.meal.live_date}} <a href="#{{meal.meal.id}}" class="feedback"> ✎</a></h5>
                             <div id="{{meal.meal.id}}" class="feedback-window">
-                                <h3 class="show-heading">Send feedback for {{meal.meal.live_date}}</h3>
+                                <h3 class="show-heading">Feedback for {{meal.meal.live_date}}</h3>
                                 <form id="feedback_form" action="{% url 'users:create_feedback' %}" method="POST">
                                     {% csrf_token %}
                                     <label for="message">Message:</label>
                                     <div class="row">
-                                        <div class="six columns">
-                                            <input type="textarea" name="message">
+                                        <div class="ten columns">
+                                            <input class="u-full-width" type="textarea" name="message">
                                             <input type="hidden" name="meal_id" value="{{meal.meal.id}}">
                                         </div>
-                                        <div class="six columns">
+                                        <div class="two columns">
                                             <input type="submit" value="Submit" />
                                         </div>
                                     </div>
