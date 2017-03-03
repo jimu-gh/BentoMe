@@ -6,35 +6,52 @@ from ..users.models import *
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 import datetime
+from django.contrib import messages
+from ..users.forms import RegisterForm, LoginForm
 # Create your views here.
 def index(request):
-    return render(request, 'adminbento/index.html')
+    if 'admin' in request.session:
+        return redirect(reverse('adminbento:dashboard'))
+    context = { 'login': LoginForm()}
+    return render(request, 'adminbento/index.html', context)
 
 def login(request):
     if request.method == "POST":
         response = User.objects.login(request.POST)
+        print 'login path hit'
         if type(response) is list:
             for errors in response:
-                messages.error(request, error)
-            return redirect(reverse('users:index'))
-        else:
+                messages.error(request, errors)
+            return redirect(reverse('adminbento:index'))
+        elif User.objects.get(id=response.id).admin == True:
+            print response.admin
             request.session['user'] = {
                 'id': response.id,
-                'first_name': response.first_name
+                'first_name': response.first_name,
+                'admin' : True
             }
-            return redirect(reverse('admin:dashboard'))
+            return redirect(reverse('adminbento:dashboard'))
+        else:
+            return redirect(reverse('users:index'))
 
 def logout(request):
     if 'user' in request.session:
         request.session.pop('user')
-    return redirect(reverse('admin:index'))
+    return redirect(reverse('adminbento:index'))
 
 def dashboard(request):
-    context={
-    'message' : Message.objects.all(),
-    'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
-    }
-    return render(request, 'adminbento/dashboard.html', context)
+    print 'dashboard route hit'
+    print request.session['user']['admin']
+    if  'admin' in request.session['user']:
+        print 'admin detected'
+        context={
+        'messages' : Message.objects.filter(meal__live_date__lt=datetime.date.today()),
+        'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
+        }
+        return render(request, 'adminbento/dashboard.html', context)
+    else:
+        print 'admin not detected'
+        return redirect(reverse('adminbento:index'))
 
 def add_dish(request):
     return render(request, 'adminbento/adddish.html',
@@ -45,6 +62,7 @@ def add_dish(request):
     })
     ##refrence the model creation once method is determined
     return redirect(reverse('adminbento:add_dish'))
+
 
 def create_dish(request):
     if request.method == "POST":
@@ -179,8 +197,18 @@ def dummy(request):
     return redirect(reverse('adminbento:dish'))
 
 def menu(request):
-    context={
-    'main_dish' : Main_Dish.objects.all(),
-    'side_dish' : Side_Dish.objects.all(),
-    }
-    return render(request, 'adminbento/menu.html', context)
+    if  'admin' in request.session['user']:
+        context={
+        'main_dish' : Main_Dish.objects.all(),
+        'side_dish' : Side_Dish.objects.all(),
+        }
+        return render(request, 'adminbento/menu.html', context)
+    else:
+        print 'admin not detected'
+        return redirect(reverse('adminbento:index'))
+
+def logout(request):
+    print "test"
+    if 'user' in request.session:
+        request.session.pop('user')
+    return redirect(reverse('home:index'))

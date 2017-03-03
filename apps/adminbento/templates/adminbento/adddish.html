@@ -6,8 +6,8 @@
   </head>
   <body>
     <div class="header">
-      <a href="/admin/dashboard">Home</a>
-      <a href="/logout">Logout</a>
+      <a href="{% url 'adminbento:dashboard' %}">Home</a>
+      <a href="{% url 'adminbento:logout' %}">Logout</a>
     </div>
     <div class="adding">
       <form enctype="multipart/form-data" class="add dish" action="{% url 'adminbento:add_dish' %}" method="post">

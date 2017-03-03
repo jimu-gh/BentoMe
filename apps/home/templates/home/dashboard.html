@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Test</title>
+        <title>BentoMe</title>
         {% load staticfiles %}
         <script src="{% static 'home/js/jquery.js' %}"></script>
         <link rel="stylesheet" href="{% static 'home/css/menu.css' %}" />
@@ -32,10 +32,19 @@
         <div class="section menu">
             <div class="container">
                 <div class="row">
-                    <div class="twelve columns">
-                        <a class="button" href="{% url 'users:show' user_id=request.session.user.id %}">View Orders</a>
-                        <a class="button" href="{% url 'users:logout' %}">Logout</a>
-                    </div>
+                    {% if request.session.user %}
+                        <div class="twelve columns">
+                            <h5 class="bento-subheading">Welcome {{request.session.user.first_name}}</h5>
+                        </div>
+                        <div class="twelve columns">
+                            <a class="button" href="{% url 'users:show' user_id=request.session.user.id %}">View Orders</a>
+                            <a class="button" href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                    {% else %}
+                        <div class="twelve columns">
+                            <a class="button button-primary" href="{% url 'users:index' %}">Login/Register</a>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="twelve columns">
@@ -62,7 +71,7 @@
                                 {% endfor %}
                                 <h1 class="bento-subheading">Cuisine:</h1>
                                 {% for category in dish.categories.all %}
-                                <h1 class="ingredient-heading">{{ category.name }}</h1>
+                                <h1 class="ingredient-heading">{{ category.name.title }}</h1>
                                 {% endfor %}
                                 {% if dish.image %}
                                     <img src="{{ dish.image.url }}" alt="" class="pix">

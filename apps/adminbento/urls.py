@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^create_meal/$', views.create_meal, name="create_meal"),
     url(r'^menu/$', views.menu, name='menu'),
     url(r'^dummy/$', views.dummy, name='dummy')
+    url(r'^logout/$', views.logout, name='logout')
 ]

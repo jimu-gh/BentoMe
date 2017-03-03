@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from ..home.models import *
+from ..users.models import *
 
 class MealForm(forms.Form):
     live_date = forms.DateField(
@@ -59,3 +60,11 @@ class IngredientForm(forms.Form):
         required = True,
         label = "Name"
     )
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['email', 'password']
+        widgets = {
+            'password': forms.PasswordInput()
+        }

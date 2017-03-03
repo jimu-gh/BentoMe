@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Admin Login</title>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Admin Login</title>
+      {% load staticfiles %}
+      <script src="{% static 'home/js/jquery.js' %}"></script>
+      <link rel="stylesheet" href="{% static 'home/css/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
+      <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
+      <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
   </head>
   <body>
   <body>
@@ -19,7 +27,7 @@
                   <div class="twelve columns">
                       <div id="open-log" class="modal-window">
                           <h3 class="register-heading">Login</h3>
-                          <form action="{% url 'adminbento:dashboard' %}" method="POST">
+                          <form action="{% url 'adminbento:login' %}" method="POST">
                               {% csrf_token %}
                               {{login.as_p}}
                               <input type="submit" value="Submit">

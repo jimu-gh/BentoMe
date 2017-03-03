@@ -18,7 +18,7 @@ def index(request):
         'login': LoginForm()
     }
 
-    return render(request, 'users/templates/index.html', context)
+    return render(request, 'users/index.html', context)
 
 def register(request):
     user = None
@@ -99,7 +99,7 @@ def show(request, user_id):
         'past_orders': [{'meal': meal, 'rating': meal.meal_ratings.filter(user__id=user_id)} for meal in past_orders]
     }
 
-    return render(request, 'users/templates/show.html', context)
+    return render(request, 'users/show.html', context)
 
 def edit_card(request):
     if 'user' not in request.session:
@@ -113,3 +113,16 @@ def edit_card(request):
         customer.save()
 
         return redirect(reverse('home:dashboard'))
+
+def create_feedback(request):
+    if request.method == "POST":
+        message = request.POST['message']
+        meal_id = request.POST['meal_id']
+        try:
+            this_meal = Meal.objects.get(id=meal_id)
+            this_user = User.objects.get(id=request.session['user']['id'])
+            Message.objects.create(user=this_user,message=message,meal=this_meal)
+            messages.success(request, "Thank you for your feedback!")
+        except:
+            messages.error(request, "Cannot have feedback for this meal")
+        return redirect(reverse('users:show',kwargs={'user_id':request.session['user']['id']}))
