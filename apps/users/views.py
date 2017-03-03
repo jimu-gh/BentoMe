@@ -89,12 +89,14 @@ def show(request, user_id):
 
     today = datetime.datetime.now().date()
 
-    user_orders = Meal.objects.filter(meal_orders__user__id=user_id)
+    user_orders = Meal.objects.filter(meal_orders__user__id=user_id).order_by('-live_date')
+    past_orders = Meal.objects.filter(meal_orders__user__id=user_id, live_date__lt=today)
+
 
     context = {
         'user': User.objects.get(id=user_id),
-        'current_orders': user_orders.filter(live_date__lte=today),
-        'past_orders': [{'meal': meal, 'rating': meal.meal_ratings.filter(user__id=user_id)} for meal in user_orders]
+        'current_orders': user_orders.filter(live_date__gte=today),
+        'past_orders': [{'meal': meal, 'rating': meal.meal_ratings.filter(user__id=user_id)} for meal in past_orders]
     }
 
     return render(request, 'users/templates/show.html', context)

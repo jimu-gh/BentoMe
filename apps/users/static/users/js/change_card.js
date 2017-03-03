@@ -27,19 +27,17 @@ $(document).ready(function () {
   // Create an instance of the card Element
   var card = elements.create('card', {style: style});
 
-
-
   // Handle real-time validation errors from the card Element.
-  $('#new_card').click(function () {
+  $(document).on('click', '#new_card', function () {
     $(this).parent().html(
       '<form action="edit_card" method="post" id="change_card_form">' +
         '<div id="card"></div>' +
+        '<div id="card-errors"></div>' +
         '<input type="hidden" name="last_4_digits" id="id_last_4_digits" value="">' +
         '<input type="hidden" name="stripe_token" id="id_stripe_token" value="">' +
         '<input type="submit" name="" value="Change Card">' +
       '</form>'
     )
-
     // Add an instance of the card Element into the `card-element` <div>
     card.mount('#card');
 
@@ -68,7 +66,16 @@ $(document).ready(function () {
         }
       });
     });
-  });
+});
+
+$('#reset').on('click',function(){
+    console.log("reset");
+    $('#cardcontainer').html(
+        '<button type="button" id="new_card">Change Card</button>'
+    )
+    card.unmount('#card');
+});
+
 
   window.onclick = function(event) {
     if (event.target == $('body')) {
