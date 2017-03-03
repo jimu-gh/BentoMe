@@ -15,13 +15,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='main_dish',
             name='display_name',
-            field=models.CharField(default='Default Display Name', max_length=100),
+            field=models.CharField(default='Default Display Name', max_length=100, unique=True),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='side_dish',
             name='display_name',
-            field=models.CharField(default='Default Display Name', max_length=100),
+            field=models.CharField(default='Default Display Name', max_length=100, unique=True),
             preserve_default=False,
         ),
     ]

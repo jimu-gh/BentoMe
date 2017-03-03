@@ -95,4 +95,14 @@ class Migration(migrations.Migration):
             name='meal',
             field=models.ManyToManyField(related_name='main_dishes', to='home.Meal'),
         ),
+        migrations.AlterField(
+            model_name='main_dish',
+            name='name',
+            field=models.CharField(max_length=100, unique=True),
+        ),
+        migrations.AlterField(
+            model_name='side_dish',
+            name='name',
+            field=models.CharField(max_length=100, unique=True),
+        ),
     ]

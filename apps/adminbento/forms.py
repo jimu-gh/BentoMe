@@ -5,20 +5,15 @@ from ..home.models import *
 from ..users.models import *
 
 class MealForm(forms.Form):
-    live_date = forms.DateField(
-        required = True,
-        label = "Date of Meal"
-    )
-
     main_dish = forms.ChoiceField(
         required = True,
-        choices = [(entree.id, entree.display_name) for entree in Main_Dish.objects.all().order_by('display_name')],
+        choices = [(entree.id, entree.display_name) for entree in Main_Dish.objects.all().order_by('display_name').distinct()],
         label = "Entree"
     )
 
     side_dish = forms.MultipleChoiceField(
         required = False,
-        choices = [(side.id, side.display_name) for side in Side_Dish.objects.all().order_by('display_name')],
+        choices = [(side.id, side.display_name) for side in Side_Dish.objects.all().order_by('display_name').distinct()],
         label = "Side Dish(es)"
     )
 
@@ -53,12 +48,6 @@ class DishForm(forms.Form):
 
     image = forms.FileField(
         required = False,
-    )
-
-class IngredientForm(forms.Form):
-    display_name = forms.CharField(
-        required = True,
-        label = "Name"
     )
 
 class LoginForm(forms.ModelForm):
