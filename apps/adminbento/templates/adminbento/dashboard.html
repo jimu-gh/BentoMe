@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="{% static 'adminbento/css/skeleton.css' %}" />
   </head>
   <body>
+<<<<<<< HEAD
         <div class="container">
             <div class="row">
                 <div class="twelve columns">
@@ -45,6 +46,40 @@
             <i>posted by: {{message.user}} at: {{message.created_at}}</i>
             </div>
             </div>
+=======
+    <div class="header">
+      <a href="{% url 'adminbento:logout' %}">Logout</a>
+    </div>
+    <div class="menu bar">
+      <ul>
+        <li><a href="{% url 'adminbento:dish' %}">Add a Dish</a></li>
+        <li><a href="{% url 'adminbento:menu' %}">Plan the Menu</a></li>
+        <li>will be some link</li>
+      </ul>
+    </div>
+    <div class="previous meals">
+      <h2>Previous Meals</h2>
+      {% for meal in meals %}
+      <div class="meals">
+        <p>Meal Date: {{meal.live_date}}</p>
+        <p>Main Dish:{% for main in meal.main_dishes.all %}
+          {{main.display_name}}
+        {% endfor %}</p>
+        <p>Side Dishes:{% for side in meal.side_dishes.all %}
+          {{side.display_name}}
+        {% endfor %}</p>
+        Units Sold: {{meal.num_sold}}
+        <!-- {{meal.unitssold}} -->
+      </div>
+      {% endfor %}
+    </div>
+    <div class="messages">
+      <h2>Messages</h2>
+        {% for message in messages%}
+          <p>{{message.message}}</p>
+          <i>posted by: {{message.user.first_name}} at: {{message.created_at}}</i>
+        {% endfor %}
+>>>>>>> 8224b1b55b07d16c8ede8f1209a29af3a0a52713
         </div>
   </body>
 </html>
