@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^create_dish/$', views.create_dish, name='create_dish'),
     url(r'^add_meal/$', views.add_meal, name="add_meal"),
     url(r'^create_meal/$', views.create_meal, name="create_meal"),
-    url(r'^menu/$', views.menu, name='menu'),
-    url(r'^logout/$', views.logout, name='logout')
+    url(r'^login/$', views.login, name="login"),
+    url(r'^logout/$', views.logout, name='logout'),
 ]

@@ -28,8 +28,8 @@ class Ingredient(models.Model):
         return self.display_name
 
 class Side_Dish(models.Model):
-    display_name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    display_name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     meal = models.ManyToManyField(Meal, related_name="side_dishes", blank=True)
     ingredients = models.ManyToManyField(Ingredient, related_name="side_dishes")
     categories = models.ManyToManyField(Category, related_name="side_dishes")
@@ -41,8 +41,8 @@ class Side_Dish(models.Model):
         return self.display_name
 
 class Main_Dish(models.Model):
-    display_name = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
+    display_name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     meal = models.ManyToManyField(Meal, related_name="main_dishes")
     ingredients = models.ManyToManyField(Ingredient, related_name="main_dishes")
     categories = models.ManyToManyField(Category, related_name="main_dishes")

@@ -56,9 +56,7 @@ def dashboard(request):
 def add_dish(request):
     return render(request, 'adminbento/adddish.html',
     {
-        'meal_form': MealForm(),
         'dish_form': DishForm(),
-        'ingredient_form': IngredientForm()
     })
     ##refrence the model creation once method is determined
     return redirect(reverse('adminbento:add_dish'))
@@ -66,6 +64,13 @@ def add_dish(request):
 
 def create_dish(request):
     if request.method == "POST":
+
+        form = DishForm(request.POST)
+
+        if not form.is_valid():
+            messages.error(request, "Please Submit Valid information")
+            return redirect(reverse('adminbento:add_dish'))
+
         print request.POST
         post_ingredients_ids = request.POST.getlist('ingredients')
         new_ingredients = request.POST['addingredients']
@@ -136,11 +141,15 @@ def create_dish(request):
                 duplicate_main_dish.save()
                 return redirect(reverse('adminbento:add_meal'))
             except:
-                created_main_dish = Main_Dish.objects.create(
-                    display_name=dish_display_name,
-                    name=name,
-                    price=700,
-                )
+                try:
+                    created_main_dish = Main_Dish.objects.create(
+                        display_name=dish_display_name,
+                        name=name,
+                        price=700,
+                    )
+                except:
+                    messages.error(request, "Dish already created with that name")
+                    return redirect(reverse('adminbento:add_dish'))
                 for ingredient in ingredients:
                     created_main_dish.ingredients.add(ingredient)
                 for category in dish_categories:
@@ -164,11 +173,15 @@ def create_dish(request):
 
                 crea
             except:
-                created_side_dish = Side_Dish.objects.create(
-                    display_name=dish_display_name,
-                    name=name,
-                    price=700,
-                )
+                try:
+                    created_side_dish = Side_Dish.objects.create(
+                        display_name=dish_display_name,
+                        name=name,
+                        price=700,
+                    )
+                except:
+                    messages.error(request, "Dish already created with that name")
+                    return redirect(reverse('adminbento:add_dish'))
                 for ingredient in ingredients:
                     created_side_dish.ingredients.add(ingredient)
                 for category in dish_categories:
@@ -181,31 +194,47 @@ def create_dish(request):
         return redirect(reverse('adminbento:add_meal'))
 
 def add_meal(request):
-    return render(request, 'adminbento/menu.html')
-
-def create_meal(request):
-    pass
-
-def dummy(request):
-    return render(request, 'adminbento/dummy.html',
-    {
-        'meal_form': MealForm(),
-        'dish_form': DishForm(),
-        'ingredient_form': IngredientForm()
-    })
-    ##refrence the model creation once method is determined
-    return redirect(reverse('adminbento:dish'))
-
-def menu(request):
-    if  'admin' in request.session['user']:
-        context={
-        'main_dish' : Main_Dish.objects.all(),
-        'side_dish' : Side_Dish.objects.all(),
-        }
-        return render(request, 'adminbento/menu.html', context)
-    else:
+    if  'admin' not in request.session['user']:
         print 'admin not detected'
         return redirect(reverse('adminbento:index'))
+
+    today = datetime.date.today()
+
+    week_length = datetime.timedelta(days=7)
+
+    days_left_in_week = 7 - today.isoweekday()
+    end_of_week = today + datetime.timedelta(days=days_left_in_week)
+
+    start_of_next_week = end_of_week + datetime.timedelta(days=1)
+    start_of_week_after_next_week = start_of_next_week + week_length
+
+    dates_of_next_two_weeks = [[None]*5, [None]*5]
+
+    for num in range(5):
+        day = datetime.timedelta(days=num)
+        dates_of_next_two_weeks[0][num] = start_of_next_week + day
+
+    for num in range(5):
+        print num
+        day = datetime.timedelta(days=num)
+        dates_of_next_two_weeks[1][num] = start_of_week_after_next_week + day
+
+    print dates_of_next_two_weeks
+
+
+    context = {
+        'meal_form' : MealForm(),
+        'main_dish' : Main_Dish.objects.all(),
+        'side_dish' : Side_Dish.objects.all(),
+        'dates_of_next_two_weeks': dates_of_next_two_weeks
+    }
+    return render(request, 'adminbento/menu.html', context)
+
+def create_meal(request):
+    if request.method == "POST":
+        print request.POST
+
+    return
 
 def logout(request):
     print "test"
