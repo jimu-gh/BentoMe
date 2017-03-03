@@ -21,12 +21,12 @@ def login(request):
                 'id': response.id,
                 'first_name': response.first_name
             }
-            return redirect(reverse('admin:dashboard'))
+            return redirect(reverse('adminbento:dashboard'))
 
 def logout(request):
     if 'user' in request.session:
         request.session.pop('user')
-    return redirect(reverse('admin:index'))
+    return redirect(reverse('adminbento:index'))
 
 def dashboard(request):
     context={
@@ -43,7 +43,7 @@ def dish(request):
         'ingredient_form': IngredientForm()
     })
     ##refrence the model creation once method is determined
-    return redirect(reverse('bentoadmin:dish'))
+    return redirect(reverse('adminbento:dish'))
 
 def add(request):
     if request.method == "POST":
@@ -59,7 +59,7 @@ def dummy(request):
         'ingredient_form': IngredientForm()
     })
     ##refrence the model creation once method is determined
-    return redirect(reverse('bentoadmin:dish'))
+    return redirect(reverse('adminbento:dish'))
 
 def menu(request):
     context={
