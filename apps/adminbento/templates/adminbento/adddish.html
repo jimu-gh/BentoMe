@@ -6,18 +6,13 @@
   </head>
   <body>
     <div class="header">
-      <a href="/admin">Home</a>
+      <a href="/admin/dashboard">Home</a>
       <a href="/logout">Logout</a>
     </div>
     <div class="adding">
       <form class="add dish" action="{% url 'adminbento:add' %}" method="post">
         {% csrf_token %}
-        <p>Dish Type:<select class="dishtype" name="dishtype">
-          <option value="1">Main Dish</option>
-          <option value="2">Side Dish</option>
-        </select></p>
-        <p>Ingredients: <textarea name="ingredients" rows="8" cols="80"></textarea></p>
-        <p>Price: <input type="number" name="price" value="" step="1"></p>
+      {{dish_form.as_p}}
         <input type="submit" name="Add Dish" value="Add Dish">
       </form>
     </div>

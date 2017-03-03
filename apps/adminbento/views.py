@@ -3,6 +3,8 @@ from ..home.models import *
 from .forms import *
 from ..users.models import *
 from django.core.urlresolvers import reverse
+from django.db.models import Count
+import datetime
 # Create your views here.
 def index(request):
     return render(request, 'adminbento/index.html')
@@ -29,12 +31,19 @@ def logout(request):
 def dashboard(request):
     context={
     'message' : Message.objects.all(),
-    'meals' : Meal.objects.all()
+    'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
     }
-    return render(request, 'adminbento/dashboard.html')
+    return render(request, 'adminbento/dashboard.html', context)
 
 def dish(request):
-    return render(request, 'adminbento/adddish.html')
+    return render(request, 'adminbento/adddish.html',
+    {
+        'meal_form': MealForm(),
+        'dish_form': DishForm(),
+        'ingredient_form': IngredientForm()
+    })
+    ##refrence the model creation once method is determined
+    return redirect(reverse('bentoadmin:dish'))
 
 def add(request):
     if request.method == "POST":
