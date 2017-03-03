@@ -10,26 +10,29 @@
         <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
+        <style rel="stylesheet" type="text/css">
+            .error{
+                color:red;
+            }
+        </style>
     </head>
     <body>
     <body>
-      {% if messages %}
-          {% for message in messages %}
-          {{message}}
-          {% endfor %}
-      {% endif %}
       <div class="section register">
           <div class="container">
               <div class="row">
                   <div class="twelve columns">
-                      <div id="open-log" class="modal-window">
-                          <h3 class="register-heading">Login</h3>
-                          <form action="{% url 'adminbento:login' %}" method="POST">
-                              {% csrf_token %}
-                              {{login.as_p}}
-                              <input type="submit" value="Submit">
-                          </form>
-                      </div>
+                      {% if messages %}
+                          {% for message in messages %}
+                          <p class="error">{{message}}</p>
+                          {% endfor %}
+                      {% endif %}
+                        <h3 class="register-heading">Login</h3>
+                        <form action="{% url 'adminbento:login' %}" method="POST">
+                            {% csrf_token %}
+                            {{login.as_p}}
+                            <input type="submit" value="Submit">
+                        </form>
                   </div>
               </div>
           </div>

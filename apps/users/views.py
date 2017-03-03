@@ -53,6 +53,7 @@ def register(request):
                     'id': user.id,
                     'first_name': user.first_name
                 }
+                messages.success(request, "Registration Success")
                 return redirect(reverse('home:dashboard'))
         for error in form.errors:
             messages.error(request, form.errors[error])
