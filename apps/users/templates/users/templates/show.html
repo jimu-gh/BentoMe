@@ -5,10 +5,14 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{user.first_name}}</title>
+        <script src="https://js.stripe.com/v2/"></script>
+        <script src="https://js.stripe.com/v3/"></script>
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static 'users/css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'users/css/skeleton.css' %}" />
         <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
+        <script src="{% static 'users/js/jquery.js' %}" charset="utf-8"></script>
+        <script src="{% static 'users/js/change_card.js'%}" charset="utf-8"></script>
     </head>
     <body>
         <h2>{{user.first_name}} {{user.last_name}}</h2>
@@ -28,8 +32,10 @@
             </div>
         {% endif %}
 
-        <p><label for="new_card">Current Card: ****{{user.last_4_digits}}</label>
-            <button type="button" id="new_card">Change Card</button>
+        <p><label for="new_card">Current Card:</label><span><em>****{{user.last_4_digits}}</em></span>
+            <div id="card_change">
+              <button type="button" id="new_card">Change Card</button>
+            </dib>
         </p>
   </body>
 </html>
