@@ -11,6 +11,24 @@
         <link rel="stylesheet" href="{% static 'home/css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/skeleton.css' %}" />
         <link rel="stylesheet" href="{% static 'home/css/lightbox.css' %}" >
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#meal-show').html($('#1').html());
+                $('.menu-link[href="#1"]').addClass("active");
+
+
+                $('.menu-link').click(function(){
+                    var div_id = $(this).attr('href');
+                    console.log(div_id, $(this).attr('href'));
+
+                    var meal = $(div_id).html();
+                    $('#meal-show').html(meal);
+                    $('.menu-link').children('h3').removeClass("active");
+                    $(this).children('h3').addClass("active");
+                    $('.menu-link[href="#1"]').removeClass("active");
+                })
+            })
+        </script>
     </head>
     <body>
         <div class="section menu">
@@ -22,55 +40,52 @@
                     </div>
                 </div>
                 <div class="row">
-<<<<<<< HEAD
                     <div class="twelve columns">
-                        <a href="#mon"><h3 class="menu-heading">Mon</h3></a>
-                        <a href="#tue"><h3 class="menu-heading">Tue</h3></a>
-                        <a href="#wed"><h3 class="menu-heading">Wed</h3></a>
-                        <a href="#thu"><h3 class="menu-heading">Thu</h3></a>
-                        <a href="#fri"><h3 class="menu-heading">Fri</h3></a>
-=======
-                    <div class="two columns">
-                        <h3>Mon</h3>
-                    </div>
-                    <div class="two columns">
-                        <h3>Tue</h3>
-                    </div>
-                    <div class="two columns">
-                        <h3>Wed</h3>
-                    </div>
-                    <div class="two columns">
-                        <h3>Thu</h3>
->>>>>>> 0d747e632bd6f92f33607671659a323683dc5912
+                        <a href="#1" class="menu-link"><h3 class="menu-heading">Mon</h3></a>
+                        <a href="#2" class="menu-link"><h3 class="menu-heading">Tue</h3></a>
+                        <a href="#3" class="menu-link"><h3 class="menu-heading">Wed</h3></a>
+                        <a href="#4" class="menu-link"><h3 class="menu-heading">Thu</h3></a>
+                        <a href="#5" class="menu-link"><h3 class="menu-heading">Fri</h3></a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="twelve columns">
-                        <div id="mon" class="modal-window">
-                            1
-                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        <div id="meal-show" class="bento-display">
+
                         </div>
-                        <div id="tue" class="modal-window">
-                            2
-                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        {% for meal in next_week_meals %}
+                        <div id="{{ meal.live_date.isoweekday }}" class="bento-display bento-none">
+                            {% for dish in meal.main_dishes.all %}
+                                <h1 class="bento-heading">{{ dish.display_name }}</h1>
+                                <h1 class="bento-subheading price">${{ dish.price }}.00</h1>
+                                <h1 class="bento-subheading">Ingredients</h1>
+                                {% for ingredient in dish.ingredients.all %}
+                                    <h4 class="ingredient-heading">{{ ingredient.display_name }} </h4>
+                                {% endfor %}
+                                <h1 class="bento-subheading">Cuisine:</h1>
+                                {% for category in dish.categories.all %}
+                                <h1 class="ingredient-heading">{{ category.name }}</h1>
+                                {% endfor %}
+                                {% if dish.image %}
+                                    <img src="{{ dish.image.url }}" alt="" class="pix">
+                                {% endif %}
+                                <br>
+                                <form>
+                                    <div class="row">
+                                        {% for side_dish in meal.side_dishes.all %}
+                                            <div class="six columns">
+                                                <label>{{ side_dish.display_name }} </label><input type="checkbox" value="{{ side_dish.name }}" name="{{ side_dish.display_name }}">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </form>
+                            {% endfor %}
                         </div>
-                        <div id="wed" class="modal-window">
-                            3
-                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
-                        </div>
-                        <div id="thu" class="modal-window">
-                            4
-                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
-                        </div>
-                        <div id="fri" class="modal-window">
-                            5
-                            <a href="#modal-close" title="Close" class="modal-close">Close</a>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-        <p>{{next_week_meals}}</p>
-        <p>{{prev_meals}}</p>
+        <!-- <p>{{prev_meals}}</p> -->
     </body>
 </html>
