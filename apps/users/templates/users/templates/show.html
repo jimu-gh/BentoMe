@@ -34,7 +34,8 @@
                     <h3 class="show-heading">Past Orders</h3>
                     {% if past_orders %}
                         {% for order in past_orders %}
-                            <h5 class="show-description">{{order.meal.live_date}} {{order.rating.rating}}</h5>
+                            <h4 class="show-description">{{order.meal.live_date}}</h4>
+                            <a href="#" class="feedback">Feedback</a></h5>
                         {% endfor %}
                     {% endif %}
                 </div>
