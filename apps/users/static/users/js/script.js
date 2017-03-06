@@ -1,6 +1,10 @@
 $(document).ready(function () {
   // Create a Stripe client
+<<<<<<< HEAD
   var stripe = Stripe('pk_test_QvqFPIH6h4uZRvIGHSGAQaKB');
+=======
+  var stripe = Stripe('pk_test_c3ASdYwo5jT8jJeDU6VE5ruo');
+>>>>>>> 7cb0160315d620273528dd066b7ee46e05e4b723
 
   // Create an instance of Elements
   var elements = stripe.elements();
@@ -49,7 +53,7 @@ $(document).ready(function () {
       if (result.error) {
         // Inform the user if there was an error
         var errorElement = document.getElementById('card-errors');
-        errorElement.textContent = result.error.message;
+        errorElement.innerHTML = result.error.message;
       } else {
         // Send the token to your server
         stripeTokenHandler(result.token);
