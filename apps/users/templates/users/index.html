@@ -27,9 +27,9 @@
             <div class="container">
                 <div class="row">
                     <div class="twelve columns">
-                        <a class="button button-primary" href="{% url 'home:dashboard' %}">Home</a><br>
-                        <a class="button" href="#open-reg">Register</a>
-                        <a class="button" href="#open-log">Login</a><br>
+                        <a class="button" href="{% url 'home:dashboard' %}">Home</a><br>
+                        <a class="button button-primary" href="#open-reg">Register</a>
+                        <a class="button button-primary" href="#open-log">Login</a><br>
                         {% if messages %}
                             {% for message in messages %}
                             <p class="error">{{message}}</p>
@@ -64,10 +64,5 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(document).on('change', function() {
-                $('#container').css('overflow-y', 'scroll');
-            });
-        </script>
     </body>
 </html>

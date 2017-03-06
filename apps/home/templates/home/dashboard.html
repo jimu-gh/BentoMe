@@ -81,19 +81,17 @@
                                   <form action="{% url 'home:order_meal' meal_id=meal.id %}" method="post">
                                     {% csrf_token %}
                                       <div class="row">
-                                          <div id="radio_group">
-                                            <div class="twelve columns">
+                                            <div class="three columns">
                                               <input type="radio" name="sides" value="0"> None
                                             </div>
                                             {% for side in meal.side_dishes.all %}
-                                            <div class="twelve columns">
-                                              <input type="radio" name="sides" value="{{side.name}}"> {{side.display_name}} (+$1.00)
+                                            <div class="three columns">
+                                              <input type="radio" name="sides" value="{{side.name}}"> {{side.display_name}} (+$1)
                                             </div>
                                             {% endfor %}
-                                            <div class="twelve columns">
-                                              <input type="radio" name="sides" value="3" checked> Both (+$2.00)
+                                            <div class="three columns">
+                                              <input type="radio" name="sides" value="3" checked> Both (+$2)
                                             </div>
-                                          </div>
                                       </div>
                                       <div class="row">
                                         <p>
@@ -105,6 +103,9 @@
                                         <input type="submit" name="" value="Order!">
                                       </div>
                                   </form>
+                                {% endif %}
+                                {% if meal.live_date in user_orders %}
+                                <h4>Thank you for your order!</h4>
                                 {% endif %}
                             {% endfor %}
                         </div>
