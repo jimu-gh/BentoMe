@@ -24,6 +24,10 @@ def dashboard(request):
         'next_week_meals': meals_for_next_week,
         'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date')
     }
+    for meals in meals_for_next_week:
+        for side in meals.side_dishes.all():
+            print side.name
+
 
     user = None
 
@@ -59,7 +63,6 @@ def order_meal(request, meal_id):
         return redirect(reverse('home:index'))
 
     if request.method == "POST":
-
         user = User.objects.get(id=request.session['user']['id'])
 
         if not user.check_password(request.POST['password']):
@@ -72,10 +75,8 @@ def order_meal(request, meal_id):
         try:
             meal = Meal.objects.filter(live_date__gte=today).get(id=meal_id)
         except:
-            messages.error(request, "Meal is not available to order you little shit")
+            messages.error(request, "Meal is not available")
             return redirect(reverse('home:dashboard'))
-
-
 
         num_sides = 0
 
@@ -104,10 +105,11 @@ def order_meal(request, meal_id):
             Meal_Order.objects.create(
                 user=user,
                 meal=meal,
-                sides=int(request.POST['sides'])
+                sides=num_sides
             )
             messages.success(request, "Order was created successfully")
             return redirect(reverse('home:dashboard'))
         else:
+            print "error"
             messages.error(request, "Order was declined for card ending in: " + user.last_4_digits)
             return redirect(reverse('home:dashboard'))
