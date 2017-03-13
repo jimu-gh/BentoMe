@@ -22,26 +22,25 @@
 }
 @media (max-width: 480px) {
     .section {
-        padding: 6rem 0rem 11rem 0rem;
+        padding: 6rem 0rem 20rem 0rem;
     }
     .hero {
-        padding-bottom: 12rem;
         text-align: center;
         height: 165px;
     }
     .faq {
-        padding: 6rem 0;
-        height: 90%;
+        padding: 3rem 0 3rem 0;
     }
     .bento {
         padding: 2.5rem 0;
         height: 90%;
     }
     .hero-heading {
-        font-size: 2rem;
+        font-size: 3rem;
     }
     .faq-heading {
         font-size: 3rem;
+        margin-bottom:-1rem;
     }
     .faq-description {
         font-size: 2rem;
@@ -126,4 +125,3 @@
     margin:0.5%;
     max-width:150px;
 }
-#

@@ -24,7 +24,7 @@
                     <div class="twelve columns">
                       <form enctype="multipart/form-data" class="add dish" action="{% url 'adminbento:add_dish' %}" method="post">
                         {% csrf_token %}
-                        {{dish_form.as_table}}
+                        {{dish_form.as_table}}<br>
                         <input type="submit" name="Add Dish" value="Add Dish">
                       </form>
                     </div>

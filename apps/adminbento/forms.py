@@ -8,13 +8,13 @@ class MealForm(forms.Form):
     main_dish = forms.ChoiceField(
         required = True,
         choices = [(entree.id, entree.display_name) for entree in Main_Dish.objects.all().order_by('display_name').distinct()],
-        label = "Entree"
+        label = "Main Dish"
     )
 
     side_dish = forms.MultipleChoiceField(
-        required = False,
-        choices = [(side.id, side.display_name) for side in Side_Dish.objects.all().order_by('display_name').distinct()],
-        label = "Side Dish(es)"
+        required = True,
+        choices = [(side.id, side.display_name) for side in Side_Dish.objects.all().order_by('display_name')],
+        widget = forms.CheckboxSelectMultiple()
     )
 
 class DishForm(forms.Form):

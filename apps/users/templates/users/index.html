@@ -30,12 +30,12 @@
                         <a class="button" href="{% url 'home:dashboard' %}">Home</a><br>
                         <a class="button button-primary" href="#open-reg">Register</a>
                         <a class="button button-primary" href="#open-log">Login</a><br>
-                        {% if messages %}
-                            {% for message in messages %}
-                            <p class="error">{{message}}</p>
-                            {% endfor %}
-                        {% endif %}
                     </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="twelve columns">
@@ -43,22 +43,52 @@
                             <h3 class="register-heading">Register</h3>
                             <form id="register_form" action="{% url 'users:register' %}" method="POST">
                                 {% csrf_token %}
-                                {{register.as_p}}
-                                <label for="cc">Credit Card #:</label>
+                                <h5 class="registration">{{ register.as_table }}</h5>
+                                <label for="cc">Credit Card Number:</label>
                                 <div id="card"></div>
                                 <div id="card_errors"></div><br>
+                                <label for="terms">I have read and agree to the <a href="#open-terms">Terms Of Service</a></label>
+                                <input type="checkbox" name="agreement" value="yes"><br>
                                 <input type="submit" value="Submit" />
                             </form>
                             <a href="#modal-close" title="Close" class="modal-close">Close</a>
                         </div>
+                    </div>
+                <div class="row">
+                    <div class="twelve columns">
                         <div id="open-log" class="modal-window">
                             <h3 class="register-heading">Login</h3>
                             <form action="{% url 'users:login' %}" method="POST">
                                 {% csrf_token %}
-                                {{login.as_p}}
+                                <h5 class="registration">{{login.as_table}}</h5>
                                 <input type="submit" value="Submit">
                             </form>
                             <a href="#modal-close" title="Close" class="modal-close">Close</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="twelve columns">
+                        <div id="open-terms" class="modal-window">
+                            <h3 class="register-heading">Terms of Service</h3>
+                                <h6 class="tos">Welcome to BentoMe! We're so happy you're here. Please read these Terms of Service before using the website.</h6>
+                                <h5 class="tos-heading">About</h5>
+                                <h6 class="tos">As used in this Agreement, "BentoMe," "we," "us," and "our" shall mean this website (the "Site"). These Terms of Service (the "Agreement") constitute a contract between you (the "User") and us. By accessing and/or using the Site, you agree to all the terms and conditions of this Agreement.</h6>
+                                <h5 class="tos-heading">Services</h5>
+                                <h6 class="tos">BentoMe is a virtual taco truck for bento. The User, once registered, may place meal orders online according to the week's menu. BentoMe will then provide the meal on the chosen date. Each meal order contains one (1) main dish and up to two (2) optional side dishes.</h6>
+                                <h5 class="tos-heading">Guarantees</h5>
+                                <h6 class="tos">BentoMe guarantees that all ingredients are sourced fresh and do not contain any harmful chemicals. BentoMe will provide accurate ingredient information for each meal.</h6>
+                                <h5 class="tos-heading">Allergies</h5>
+                                <h6 class="tos">The User should provide notice at least twelve (12) hours before the delivery date in regard to possible allergens or ingredients to avoid using in the bento.</h6>
+                                <h5 class="tos-heading">Payment</h5>
+                                <h6 class="tos">BentoMe uses Stripe for payment processing via credit card.</h6>
+                                <h5 class="tos-heading">Privacy</h5>
+                                <h6 class="tos">BentoMe does NOT store your credit card number or CVC information.</h6>
+                                <h5 class="tos-heading">Limitation of Liability</h5>
+                                <h6 class="tos">BENTOME SHALL NOT BE LIABLE FOR ANY DAMAGES WHATSOEVER, AND IN PARTICULAR BENTOME SHALL NOT BE LIABLE FOR ANY DAMAGES DUE TO ALLERGIC REACTIONS TO ALLERGENS SUCH AS WHEAT, MILK, EGGS, LECITHIN, ETC.</h6>
+                                <h5 class="tos-heading">Refunds</h5>
+                                <h6 class="tos">BentoMe does not currently offer refunds.</h6>
+                            <a href="#open-reg" title="Close" class="modal-close">Back</a>
                         </div>
                     </div>
                 </div>

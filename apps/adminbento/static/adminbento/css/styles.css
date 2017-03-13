@@ -2,6 +2,10 @@
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
+	list-style-type: none;
+}
+#id_dish_type, #id_ingredients{
+	margin-bottom:-.5rem;
 }
 .section {
     padding: 2rem 0 2rem;
@@ -25,7 +29,7 @@
 }
 #id_dish_type li, #id_ingredients li{
 	display:inline-block;
-	padding:5px;
+	padding:.25rem;
 }
 #id_side_dish{
 	height:30px;
@@ -53,10 +57,10 @@
 		font-size:1.25rem;
 	}
 	.message{
-		font-size:1.75rem;
+		font-size:1.5rem;
 	}
 	.timestamp{
-		font-size:1.5rem;
+		font-size:1.25rem;
 	}
 }
 @media (min-width:481px) {
@@ -87,10 +91,10 @@
 		font-size:1.75rem;
 	}
 	.message{
-		font-size:2rem;
+		font-size:1.75rem;
 	}
 	.timestamp{
-		font-size:1.75rem;
+		font-size:1.5rem;
 	}
 }
 @media (min-width: 961px) {
@@ -110,10 +114,10 @@
 		font-size:2.25rem;
 	}
 	.message{
-		font-size:2.75rem;
+		font-size:2rem;
 	}
 	.timestamp{
-		font-size:2rem;
+		font-size:1.75rem;
 	}
 }
 .modal-window {

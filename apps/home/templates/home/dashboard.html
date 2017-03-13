@@ -27,6 +27,11 @@
                 })
             })
         </script>
+        <style rel="stylesheet" type="text/css">
+            .success{
+                color:green;
+            }
+        </style>
     </head>
     <body>
         <div class="section menu">
@@ -37,13 +42,18 @@
                             <h5 class="bento-subheading">Welcome {{request.session.user.first_name}}</h5>
                         </div>
                         <div class="twelve columns">
-                            <a class="button" href="{% url 'users:show' user_id=request.session.user.id %}">View Orders</a>
+                            <a class="button" href="{% url 'users:show_user' user_id=request.session.user.id %}">Orders</a>
                             <a class="button" href="{% url 'users:logout' %}">Logout</a>
                         </div>
                     {% else %}
                         <div class="twelve columns">
                             <a class="button button-primary" href="{% url 'users:index' %}">Login/Register</a>
                         </div>
+                    {% endif %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="success">{{message}}</p>
+                        {% endfor %}
                     {% endif %}
                 </div>
                 <div class="row">
@@ -63,13 +73,13 @@
                         {% for meal in next_week_meals %}
                         <div id="{{ meal.live_date.isoweekday }}" class="bento-display bento-none">
                             {% for dish in meal.main_dishes.all %}
-                                <h1 class="bento-heading">{{ dish.display_name }}</h1>
-                                <h1 class="bento-subheading price">${{ dish.price }}.00</h1>
+                                <h1 class="bento-heading">{{ meal.live_date }}:<br>{{ dish.display_name }}</h1>
+                                <h1 class="bento-subheading price">$7.00</h1>
                                 <h1 class="bento-subheading">Ingredients</h1>
                                 {% for ingredient in dish.ingredients.all %}
                                     <h4 class="ingredient-heading">{{ ingredient.display_name }} </h4>
                                 {% endfor %}
-                                <h1 class="bento-subheading">Cuisine:</h1>
+                                <h1 class="bento-subheading">Category:</h1>
                                 {% for category in dish.categories.all %}
                                 <h1 class="ingredient-heading">{{ category.name.title }}</h1>
                                 {% endfor %}
@@ -77,35 +87,36 @@
                                     <img src="{{ dish.image.url }}" alt="" class="pix">
                                 {% endif %}
                                 <br>
-                                {% if meal.live_date not in user_orders %}
-                                  <form action="{% url 'home:order_meal' meal_id=meal.id %}" method="post">
-                                    {% csrf_token %}
-                                      <div class="row">
-                                            <div class="three columns">
-                                              <input type="radio" name="sides" value="0"> None
-                                            </div>
-                                            {% for side in meal.side_dishes.all %}
-                                            <div class="three columns">
-                                              <input type="radio" name="sides" value="{{side.name}}"> {{side.display_name}} (+$1)
-                                            </div>
-                                            {% endfor %}
-                                            <div class="three columns">
-                                              <input type="radio" name="sides" value="3" checked> Both (+$2)
-                                            </div>
-                                      </div>
-                                      <div class="row">
-                                        <p>
-                                          <label for="password">Password:</label>
-                                          <input type="password" name="password" value="">
-                                        </p>
-                                      </div>
-                                      <div class="row">
-                                        <input type="submit" name="" value="Order!">
-                                      </div>
-                                  </form>
-                                {% endif %}
                                 {% if meal.live_date in user_orders %}
-                                <h4>Thank you for your order!</h4>
+                                <h4>Your bento is on the way!</h4>
+                                {% elif meal.num_sold > 4 %}
+                                <h4>SOLD OUT! Please try another day.</h4>
+                                {% elif meal.live_date not in user_orders %}
+                                <form action="{% url 'home:order_meal' meal_id=meal.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="two columns">
+                                            <input type="radio" name="sides" value="0"> None
+                                        </div>
+                                        {% for side in meal.side_dishes.all %}
+                                        <div class="four columns">
+                                            <input type="radio" name="sides" value="{{side.display_name}}"> {{side.display_name}} (+$1)
+                                        </div>
+                                        {% endfor %}
+                                        <div class="two columns">
+                                            <input type="radio" name="sides" value="2" checked> Both (+$2)
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <p>
+                                        <label for="password">Password:</label>
+                                        <input type="password" name="password" value="">
+                                        </p>
+                                    </div>
+                                    <div class="row order">
+                                        <button class="buton button-primary" type="submit">Order!</button>
+                                    </div>
+                                    </form>
                                 {% endif %}
                             {% endfor %}
                         </div>

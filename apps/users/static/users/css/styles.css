@@ -17,15 +17,22 @@
 .categories .section-description {
     margin-bottom: 4rem;
 }
+.tos{
+	text-align: left;
+}
 #feature{
     width:95%;
 }
+#chatbox{
+	text-align: left;
+}
 @media (max-width: 480px) {
     .section {
-        padding: 1rem 0rem 1rem 0rem;
+        padding: 6rem 0rem 11rem 0rem;
     }
     .register-heading {
-        font-size: 4rem;
+        font-size: 3rem;
+		padding-bottom:1.5rem;
     }
     .show-heading {
         font-size: 2.5rem;
@@ -33,8 +40,29 @@
     .show-description {
         font-size: 2rem;
     }
+	.order-heading {
+		font-size:2.5rem;
+	}
+	.order-description {
+		font-size:2rem;
+	}
+	.tos-heading{
+		font-size:1.25rem;
+		margin-top:-0.5rem;
+		margin-bottom:-0.25rem;
+	}
+	.tos{
+		font-size:1.125rem;
+	}
 	.feedback{
 		font-size:1.25rem;
+	}
+	#id_first_name, #id_last_name, #id_email, #id_password, #id_password1, #id_password2, #id_student{
+		font-size:1.25rem;
+	}
+	.registration, .label{
+		font-size:1.25rem;
+		margin-top:-1rem;
 	}
 }
 @media (min-width:481px) {
@@ -42,7 +70,7 @@
         padding: 2rem 0 2rem;
     }
     .register-heading {
-        font-size: 5rem;
+        font-size: 4rem;
     }
     .register-description {
         max-width: 60%;
@@ -55,8 +83,31 @@
     .show-description {
 		font-size:2rem;
     }
+	.order-heading {
+		font-size:3rem;
+	}
+	.order-description {
+		font-size:2.5rem;
+	}
+	.tos-heading{
+		font-size:1.75rem;
+		margin-top:-0.5rem;
+		margin-bottom:-0.25rem;
+	}
+	.tos{
+		font-size:1.5rem;
+	}
 	.feedback{
 		font-size:1.75rem;
+	}
+	#id_first_name, #id_last_name, #id_email, #id_password, #id_password1, #id_password2, #id_student{
+		font-size:1.5rem;
+		margin-bottom:-0.25rem;
+		margin-top:-0.25rem;
+	}
+	.registration, .label{
+		font-size:1.5rem;
+		margin-top:-1rem;
 	}
 }
 @media (min-width: 961px) {
@@ -64,23 +115,44 @@
         padding: 3rem 0 3rem;
     }
     .register-heading {
-        font-size: 6rem;
+        font-size: 5rem;
     }
 	.show-heading {
-		font-size:4rem;
+		font-size:3.5rem;
 	}
 	.show-description {
 		font-size:3rem;
 	}
+	.order-heading {
+		font-size:3.5rem;
+	}
+	.order-description {
+		font-size:2.75rem;
+	}
+	.tos-heading{
+		font-size:2.5rem;
+	}
+	.tos{
+		font-size:2rem;
+	}
 	.feedback{
 		font-size:2.25rem;
+	}
+	#id_first_name, #id_last_name, #id_email, #id_password, #id_password1, #id_password2, #id_student{
+		font-size:2rem;
+		margin-bottom:-0.25rem;
+		margin-top:-0.25rem;
+	}
+	.registration, .label{
+		font-size:1.5rem;
+		margin-top:-1rem;
 	}
 }
 .modal-window {
 	position:absolute;
-	top:7.5%;
+	top:25%;
     right:7.5%;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.9);
 	z-index:999;
 	opacity:0;
     width:85%;
@@ -91,7 +163,7 @@
     border: 1px #BBBBBB solid;
     border-radius:6px;
     padding:10px;
-	overflow-y:scroll;
+	height:auto;
 }
 .modal-window:target {
 	opacity:1;
@@ -101,12 +173,12 @@
 	width:400px;
 	position:relative;
 	margin:10% auto;
-    padding:2rem;
+    padding:1rem;
 	background:#fff;
 	color:#444;
 }
 .modal-close {
-	color:#aaa;
+	color:black;
 	line-height:50px;
 	font-size:80%;
 	position:absolute;
@@ -117,11 +189,8 @@
 	text-decoration:none;
 }
 .modal-close:hover {
-	color:#000;
-}
-.modal-window h1 {
-  font-size: 150%;
-  margin: 0 0 15px;
+	color:red;
+	font-weight:bold;
 }
 .feedback-window {
 	position:absolute;
@@ -137,7 +206,8 @@
 	transition:all 0.3s;
     border: 1px #BBBBBB solid;
     border-radius:6px;
-    padding:30px;
+    padding:10px;
+	height:auto;
 }
 .feedback-window:target {
 	opacity:1;
@@ -158,12 +228,13 @@
 	position:absolute;
 	right:0;
 	text-align:center;
-	top:0;
+	top:80%;
 	width:70px;
 	text-decoration:none;
 }
 .feedback-close:hover {
-	color:#000;
+	color:red;
+	font-weight:bold;
 }
 .feedback-window h1 {
   font-size: 150%;
@@ -174,4 +245,8 @@
 }
 .top{
 	padding-top:1em;
+}
+.message{
+	height:6rem;
+	font-size:1.5rem;
 }
