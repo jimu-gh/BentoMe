@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Order Status - {{user.first_name}} {{user.last_name}}</title>
+        <script src="https://js.stripe.com/v2/"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'users/css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% static 'users/css/skeleton.css' %}" />
+        <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
+        <script src="{% static 'users/js/jquery.js' %}" charset="utf-8"></script>
+        <script src="{% static 'users/js/change_card.js'%}" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    {% if request.session.user %}
+                        <div class="twelve columns">
+                            <h5 class="show-heading">Welcome {{request.session.user.first_name}}</h5>
+                        </div>
+                        <div class="twelve columns">
+                            <a class="button button-primary" href="{% url 'home:dashboard' %}">Menu</a>
+                            <a class="button" href="{% url 'users:show_user' user_id=request.session.user.id %}">Orders</a>
+                            <a class="button" href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                    {% else %}
+                        <div class="twelve columns">
+                            <a class="button button-primary" href="{% url 'users:index' %}">Login/Register</a>
+                        </div>
+                    {% endif %}
+                    <div class="six columns">
+                        <h1 class="register-heading">Order Info</h1>
+                        <h2 class="order-heading">Delivery Date:</h2>
+                        <h4 class="order-description">{{ meal.live_date }}</h4>
+                        <h3 class="order-heading">Main Dish:</h3>
+                        {% for main_dish in meal.main_dishes.all %}
+                        <h4 class="order-description">{{ main_dish.display_name }}</h4>
+                        {% endfor %}
+                        <h3 class="order-heading">Side Dish(es):</h3>
+                        {% for meal_order in meal.meal_orders.all %}
+                            {% if meal_order.user.id == user.id %}
+                                {% if meal_order.sides == '0' %}
+                                <h4 class="order-description">No sides ordered.</h4>
+                                {% elif meal_order.sides == '2' %}
+                                <h4 class="order-description">Both sides ordered.</h4>
+                                {% else %}
+                                <h4 class="order-description">{{ meal_order.sides }}</h4>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="five columns">
+                        <h1 class="register-heading">Chat</h1>
+                        <h3 class="order-description"><a href="#{{meal.id}}" class="feedback">✎</a></h3>
+                        <div id="{{ meal.id }}" class="feedback-window">
+                            <h3 class="show-heading">Message:</h3>
+                            <form id="feedback_form" action="{% url 'users:create_feedback' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="twelve columns">
+                                        <input class="u-full-width message" type="textarea" name="message">
+                                        <input type="hidden" name="meal_id" value="{{ meal.id }}">
+                                    </div>
+                                </div>
+                                    <div class="twelve columns">
+                                        <input type="submit" value="Submit" />
+                                    </div>
+                            </form>
+                            <a href="#feedback-close" title="Close" class="feedback-close">Close</a>
+                        </div>
+                        {% for message in messages.all %}
+                        <h4 class="order-description" id="chatbox">{{ message.user.first_name }}: {{ message.message }}</h4>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -26,7 +26,6 @@ class User(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
-    student = models.BooleanField(default=True)
     admin = models.BooleanField(default=False)
     last_4_digits = models.CharField(max_length=4, default="0000")
     stripe_id = models.CharField(max_length=255)

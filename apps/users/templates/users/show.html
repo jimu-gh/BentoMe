@@ -13,66 +13,70 @@
         <link rel="stylesheet" href="{% static 'users/css/styles.css' %}" />
         <script src="{% static 'users/js/jquery.js' %}" charset="utf-8"></script>
         <script src="{% static 'users/js/change_card.js'%}" charset="utf-8"></script>
+        <style rel="stylesheet" type="text/css">
+            .success{
+                color:green;
+            }
+        </style>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <div class="twelve columns">
-                    <h1 class="register-heading">{{user.first_name}} {{user.last_name}}</h1>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    {% if request.session.user %}
+                        {% if request.session.user.id == 24 %}
+                        <h5 class="show-heading">{{ user.first_name }}'s Orders</h5>
+                        {% else %}
+                        <div class="twelve columns">
+                            <h5 class="show-heading">Welcome {{request.session.user.first_name}}</h5>
+                        </div>
+                        {% endif %}
+                        <div class="twelve columns">
+                            <a class="button button-primary" href="{% url 'home:dashboard' %}">Menu</a>
+                            <a class="button" href="{% url 'users:logout' %}">Logout</a>
+                        </div>
+                    {% else %}
+                        <div class="twelve columns">
+                            <a class="button button-primary" href="{% url 'users:index' %}">Login/Register</a>
+                        </div>
+                    {% endif %}
                     {% if messages %}
                         {% for message in messages %}
-                        <p class="error">{{message}}</p>
+                        <p class="success">{{message}}</p>
                         {% endfor %}
                     {% endif %}
                 </div>
-            </div>
-            <div class="row">
-                <div class="six columns">
-                    <h3 class="show-heading">Current Orders</h3>
-                    {% if current_orders %}
-                        {% for order in current_orders %}
-                            <h5 class="show-description">{{order.live_date}}</h5>
-                        {% endfor %}
-                    {% endif %}
+                <div class="row">
+                    <div class="six columns">
+                        <h3 class="show-heading">Current Orders</h3>
+                        {% if current_orders %}
+                            {% for order in current_orders %}
+                                <h5 class="show-description"><a href="{% url 'users:show_order' meal_id=order.id %}">{{order.live_date}}</a></h5>
+                                {% for main_dish in order.meal.main_dishes.all %}
+                                    <h5 class="show-description">{{main_dish.display_name}}</h5>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="six columns">
+                        <h3 class="show-heading">Past Orders</h3>
+                        {% if past_orders %}
+                            {% for meal in past_orders %}
+                                <h5 class="show-description"><a href="{% url 'users:show_order' meal_id=meal.meal.id %}">{{meal.meal.live_date}}</a>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="six columns">
-                    <h3 class="show-heading">Past Orders</h3>
-                    {% if past_orders %}
-                        {% for meal in past_orders %}
-                            <h5 class="show-description">{{meal.meal.live_date}} <a href="#{{meal.meal.id}}" class="feedback"> ✎</a></h5>
-                            <div id="{{meal.meal.id}}" class="feedback-window">
-                                <h3 class="show-heading">Feedback for {{meal.meal.live_date}}</h3>
-                                <form id="feedback_form" action="{% url 'users:create_feedback' %}" method="POST">
-                                    {% csrf_token %}
-                                    <label for="message">Message:</label>
-                                    <div class="row">
-                                        <div class="ten columns">
-                                            <input class="u-full-width" type="textarea" name="message">
-                                            <input type="hidden" name="meal_id" value="{{meal.meal.id}}">
-                                        </div>
-                                        <div class="two columns">
-                                            <input type="submit" value="Submit" />
-                                        </div>
-                                    </div>
-                                </form>
-                                <a href="#feedback-close" title="Close" class="feedback-close">Close</a>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                <div class="row">
+                    <div class="twelve columns" id="cardcontainer">
+                        <label for="new_card">Current Card: <em>****{{user.last_4_digits}}</em></label>
+                        <button type="button" id="new_card">Change Card</button>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="twelve columns" id="cardcontainer">
-                    <label for="new_card">Current Card: <em>****{{user.last_4_digits}}</em></label>
-                    <button type="button" id="new_card">Change Card</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="six columns">
-                    <a class="button" id="reset">Reset</a>
-                </div>
-                <div class="six columns">
-                    <a class="button" href="{% url 'home:dashboard' %}">Back</a>
+                <div class="row">
+                    <div class="twelve columns">
+                        <a class="button" id="reset">Reset</a>
+                    </div>
                 </div>
             </div>
         </div>

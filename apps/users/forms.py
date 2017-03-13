@@ -37,13 +37,8 @@ class RegisterForm(forms.Form):
     password2 = forms.CharField(
         required = True,
         widget = forms.PasswordInput(render_value = False),
-        label = 'Password Confirmation',
+        label = 'Confirm Password',
 
-    )
-
-    student = forms.BooleanField(
-        required = False,
-        label = "Are you a CodingDojo Student?"
     )
 
     last_4_digits = forms.CharField(

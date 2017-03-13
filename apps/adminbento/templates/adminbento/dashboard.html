@@ -33,17 +33,13 @@
                             <h5 class="dish-heading">Side Dishes:{% for side in meal.side_dishes.all %}</h5>
                               <h6 class="dish-element">• {{side.display_name}}</h6>
                             {% endfor %}
-                            <h5 class="dish-heading">Units Sold: {{meal.num_sold}}</h5>
-                            <!-- {{meal.unitssold}} -->
+                            <h5 class="dish-heading">Sold: {{meal.num_sold}}</h5>
                         </div>
                         {% endfor %}
                     </div>
                     <div class="six columns">
-                        <h4 class="show-heading">Messages</h4>
-                          {% for message in messages%}
-                            <h4 class="message">{{message.message}}</h4>
-                            <h2 class="timestamp"><i>posted by: {{message.user.first_name}} at: {{message.created_at}}</i></h2>
-                          {% endfor %}
+                        <h4 class="show-heading">Upcoming Meals</h4>
+                        
                     </div>
                 </div>
             </div>

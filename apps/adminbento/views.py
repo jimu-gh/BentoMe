@@ -5,13 +5,11 @@ from .forms import *
 from ..users.models import *
 from django.core.urlresolvers import reverse
 from django.db.models import Count
-import datetime
+import datetime, time
 from django.contrib import messages
 from ..users.forms import RegisterForm, LoginForm
 # Create your views here.
 def index(request):
-    if 'admin' in request.session['user']:
-        return redirect(reverse('adminbento:dashboard'))
     context = { 'login': LoginForm()}
     return render(request, 'adminbento/index.html', context)
 
@@ -31,6 +29,7 @@ def login(request):
             }
             return redirect(reverse('adminbento:dashboard'))
         else:
+            messages.error(request, "You are not an admin.")
             return redirect(reverse('users:index'))
 
 def logout(request):
@@ -39,13 +38,8 @@ def logout(request):
     return redirect(reverse('adminbento:index'))
 
 def dashboard(request):
-    if  'admin' not in request.session['user']:
-        print 'admin not detected'
-        return redirect(reverse('adminbento:index'))
-
-    print 'admin detected'
     context={
-        'messages' : Message.objects.filter(meal__live_date__lt=datetime.date.today()),
+        'messages' : Message.objects.filter(meal__live_date__lt=datetime.date.today()).order_by("-created_at"),
         'meals' :Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__lt=datetime.date.today()),
     }
     return render(request, 'adminbento/dashboard.html', context)
@@ -224,14 +218,20 @@ def add_meal(request):
 
 def create_meal(request):
     if request.method == "POST":
-        meal_live_date = datetime.date.fromordinal(int(request.POST['meal_date']))
+        meal_live_date = time.strptime(request.POST['meal_date'], "%B %d, %Y")
+        entree = request.POST['main_dish']
+
+        try:
+            entree = Main_Dish.objects.get(id=int(entree))
+        except:
+            messages.error(request, "Main dish does not exist please try again")
+            return redirect(reverse('adminbento:add_meal'))
+
         sides = request.POST.getlist('side_dish')
 
         if len(sides) > 2:
             messages.error("Can only have at most 2 side dishes")
             return redirect(reverse('adminbento:add_meal'))
-
-        entree = request.POST['main_dish']
 
         for i in range(len(sides)):
             try:
@@ -241,14 +241,9 @@ def create_meal(request):
                 messages.error(request, "Side dish does not exist")
                 return redirect(reverse("adminbento:add_meal"))
 
-        try:
-            entree = Main_Dish.objects.get(id=int(entree))
-        except:
-            messages.error(request, "Main dish does not exist please try again")
-            return redirect(reverse('adminbento:add_meal'))
-
         meal = Meal.objects.create(
             live_date=meal_live_date,
+            count=0
         )
         meal.main_dishes.add(entree)
         for side in sides:

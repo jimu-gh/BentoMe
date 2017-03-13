@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from .models import *
 from ..users.models import *
+from django.db.models import Count
 
 import datetime, stripe
 
@@ -16,18 +17,14 @@ def dashboard(request):
     end_of_week = today + datetime.timedelta(days=days_left_in_week)
     end_of_next_week = end_of_week + datetime.timedelta(days=7)
 
-    meals_for_the_week = Meal.objects.filter(live_date__gte=today, live_date__lt=end_of_week).order_by('live_date')
-    meals_for_next_week = Meal.objects.filter(live_date__gt=end_of_week, live_date__lt=end_of_next_week).order_by('live_date')
+    meals_for_the_week = Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__gte=today, live_date__lt=end_of_week).order_by('live_date')
+    meals_for_next_week = Meal.objects.annotate(num_sold=Count('meal_orders')).filter(live_date__gt=end_of_week, live_date__lt=end_of_next_week).order_by('live_date')
 
     context = {
         'this_week_meals': meals_for_the_week,
         'next_week_meals': meals_for_next_week,
         'prev_meals': Meal.objects.filter(live_date__lt=today).order_by('live_date')
     }
-    for meals in meals_for_next_week:
-        for side in meals.side_dishes.all():
-            print side.name
-
 
     user = None
 
@@ -66,28 +63,25 @@ def order_meal(request, meal_id):
         user = User.objects.get(id=request.session['user']['id'])
 
         if not user.check_password(request.POST['password']):
-            messages.error(request, "Wrong password")
+            messages.error(request, "Wrong password.")
             return redirect(reverse('users:index'))
 
-        print request.POST
+        # print request.POST
 
         today = datetime.date.today()
         try:
             meal = Meal.objects.filter(live_date__gte=today).get(id=meal_id)
         except:
-            messages.error(request, "Meal is not available")
+            messages.error(request, "Meal is not available.")
             return redirect(reverse('home:dashboard'))
 
-        num_sides = 0
-
-        if request.POST['sides'] == '3':
-            num_sides = 2
+            # calculating price with sides
+        if len(request.POST['sides']) > 1:
+            num_sides = 1
         elif request.POST['sides'] == '0':
             num_sides = 0
         else:
-            num_sides = 1
-
-        print num_sides
+            num_sides = 2
 
         total_price = 700 + (num_sides * 100)
 
@@ -99,16 +93,16 @@ def order_meal(request, meal_id):
             receipt_email=user.email
         )
 
-        print charge
+        print "charge:" + str(charge)
 
         if charge.outcome.type == 'authorized':
             Meal_Order.objects.create(
                 user=user,
                 meal=meal,
-                sides=num_sides
+                sides=request.POST['sides']
             )
-            messages.success(request, "Order was created successfully")
-            return redirect(reverse('home:dashboard'))
+            messages.success(request, "Thank you for your order!")
+            return redirect(reverse('users:show_user', kwargs={'user_id':user.id}))
         else:
             print "error"
             messages.error(request, "Order was declined for card ending in: " + user.last_4_digits)
