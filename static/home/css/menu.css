@@ -1,0 +1,170 @@
+.section {
+    padding: 8rem 0 7rem;
+    text-align: center;
+}
+.menu {
+    padding-bottom: 3rem;
+}
+.menu-heading {
+    display: inline-block;
+}
+#container{
+    text-align: center;
+}
+img{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:500px;
+}
+.price{
+    font-style: italic;
+}
+@media (max-width: 619px) {
+    .section {
+        padding: 6rem 0rem 11rem 0rem;
+    }
+    .hero {
+        padding-bottom: 12rem;
+        text-align: center;
+        height: 165px;
+    }
+    .menu {
+        padding: 3rem 0;
+        height: 90%;
+    }
+    .bento {
+        padding: 2.5rem 0;
+        height: 90%;
+    }
+    .hero-heading {
+        font-size: 2rem;
+    }
+    .menu-heading {
+        font-size: 3rem;
+        padding-left:5%;
+        padding-right:5%;
+        padding-top:1%;
+        padding-bottom:1%;
+    }
+    .menu-description {
+        font-size: 2rem;
+    }
+    .bento-heading {
+        font-size: 3rem;
+    }
+    .bento-subheading {
+        font-size: 2.5rem;
+    }
+    .ingredient-heading {
+        font-size: 1.5rem;
+        display:inline-block;
+        padding: 4px;
+        border: 1px black solid;
+        border-radius:6px;
+    }
+    .pix{
+        width:90%;
+    }
+}
+@media (min-width:620px) {
+    .section {
+        padding: 14rem 0 15rem;
+    }
+    .menu {
+        padding: 3rem 0;
+        height: 90%;
+    }
+    .bento {
+        padding: 2.5rem 0;
+        height: 90%;
+    }
+    .menu-heading {
+        font-size: 5rem;
+        padding-left:5%;
+        padding-right:5%;
+        padding-top:1%;
+        padding-bottom:1%;
+    }
+    .menu-description {
+        font-size: 2rem;
+    }
+    .bento-heading {
+        font-size: 4rem;
+    }
+    .bento-subheading {
+        font-size: 3.0rem;
+    }
+    .ingredient-heading {
+        font-size: 1.75rem;
+        display:inline-block;
+        padding: 4px;
+        border: 1px black solid;
+        border-radius:6px;
+    }
+    .pix{
+        width:90%;
+    }
+}
+@media (min-width: 961px) {
+    .section {
+        padding: 20rem 0 19rem;
+    }
+    .hero {
+        padding: 12rem 0 22rem;
+    }
+    .menu {
+        padding: 3rem 0;
+        height: 90%;
+    }
+    .bento {
+        padding: 2.5rem 0;
+        height: 90%;
+    }
+    .menu-heading {
+        font-size: 6rem;
+        padding-left:5%;
+        padding-right:5%;
+    }
+    .menu-description {
+        font-size: 2.5rem;
+    }
+    .bento-heading {
+        font-size: 4.0rem;
+    }
+    .bento-subheading {
+        font-size: 3.5rem;
+    }
+    .ingredient-heading {
+        font-size: 2rem;
+        display:inline-block;
+        padding: 4px;
+        border: 1px black solid;
+        border-radius:6px;
+    }
+    .pix{
+        width:90%;
+    }
+}
+.bento-display {
+    top:1px;
+    background-color: rgba(255,255,255,0.5);
+	z-index:999;
+	-webkit-transition:all 0.3s;
+	-moz-transition:all 0.3s;
+	transition:all 0.3s;
+    border: 1px black solid;
+    border-radius:6px;
+    padding:1%;
+    margin: 0 auto;
+}
+.bento-none{
+    display:none;
+}
+.bento
+div .bordered{
+    border:1px black solid;
+}
+.active{
+    color:red;
+}
