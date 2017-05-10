@@ -1,4 +1,1 @@
-static/* linguist-vendored
-apps/adminbento/static* linguist-vendored
-apps/home/static* linguist-vendored
-apps/users/static* linguist-vendored
+*.js linguist-language=Python
