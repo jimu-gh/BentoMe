@@ -17,7 +17,8 @@
             <div class="container">
                 <div class="row">
                     <div class="one-half column">
-                        <h4 class="hero-heading">BentoMe is currently on hiatus. Thank you everyone for your support!</h4>
+                        <h4 class="hero-heading">Healthy meals for the modern foodie.<br>Welcome to BentoMe™</h4>
+			<a class="button button-primary" href="{% url 'users:index' %}">Bento Me!</a>
                     </div>
                     <div class="one-half column">
                         <img src="{% static 'home/images/bentoicon1.png' %}" class="logo">
@@ -25,6 +26,52 @@
                 </div>
             </div>
         </div>
+                <div class="section faq">
+            <div class="container">
+                <div class="row">
+                    <div class="one-third column ">
+                        <h3 class="faq-heading">What's Bento?</h2><br>
+                        <h5 class="faq-description">Bento is a home-packed Japanese lunch, traditionally containing rice, fish or meat, and cooked vegetables. BentoMe is a modern take on the traditional recipe.</h5>
+                    </div>
+                    <div class="one-third column">
+                        <h3 class="faq-heading">How It Works</h3><br>
+                        <h4 class="faq-description">1. Create an account</h4>
+                        <h4 class="faq-description">2. Choose a day</h4>
+                        <h4 class="faq-description">3. Enjoy your bento!</h4>
+                    </div>
+                    <div class="one-third column">
+                        <h3 class="faq-heading">Meet The Chef!</h3><br>
+                        <h5 class="faq-description">Meet Maria. Formally trained at Le Cordon Bleu, Maria grew up in Japanese kitchens and has over 14&nbsp;years of professional experience. BentoMe is your window to the bentomaster's kitchen.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section bento">
+            <div class="row" id="bentopix">
+                <div class="twelve columns">
+                    <a href="{% static 'home/images/1.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/1.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/2.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/2.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/3.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/3.jpg' %}" class="sample"></a><br>
+                    <a href="{% static 'home/images/4.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/4.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/5.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/5.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/6.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/6.jpg' %}" class="sample"></a><br>
+                    <a href="{% static 'home/images/7.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/7.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/8.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/8.jpg' %}" class="sample"></a>
+                    <a href="{% static 'home/images/9.jpg' %}" data-lightbox="bento"><img width="100" src="{% static 'home/images/9.jpg' %}" class="sample"></a><br>
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'home/js/lightbox.js' %}"></script>
+        <script>
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true,
+            showImageNumberLabel: false,
+            disableScrolling: true,
+            alwaysShowNavOnTouchDevices:true,
+            imageFadeDuration:300,
+            fadeDuration:300
+        })
         </script>
     </body>
 </html>
