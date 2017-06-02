@@ -20,6 +20,8 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^', include('apps.home.urls', namespace='home')),
+    url(r'^users/', include('apps.users.urls', namespace='users')),
+    url(r'^admin/', include('apps.adminbento.urls', namespace='adminbento')),
     url(r'^superadmin/', admin.site.urls),
 ]
 

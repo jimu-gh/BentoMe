@@ -70,7 +70,7 @@
                         <div id="meal-show" class="bento-display">
 
                         </div>
-                        {% for meal in next_week_meals %}
+                        {% for meal in this_week_meals %}
                         <div id="{{ meal.live_date.isoweekday }}" class="bento-display bento-none">
                             {% for dish in meal.main_dishes.all %}
                                 <h1 class="bento-heading">{{ meal.live_date }}:<br>{{ dish.display_name }}</h1>

@@ -10,8 +10,7 @@ from django.contrib import messages
 from ..users.forms import RegisterForm, LoginForm
 # Create your views here.
 def index(request):
-    context = { 'login': LoginForm()}
-    return render(request, 'adminbento/index.html', context)
+    return render(request, 'home/index.html')
 
 def login(request):
     if request.method == "POST":
